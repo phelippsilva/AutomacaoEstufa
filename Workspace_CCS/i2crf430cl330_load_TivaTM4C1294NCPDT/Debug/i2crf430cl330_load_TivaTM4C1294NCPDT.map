@@ -1,0 +1,426 @@
+******************************************************************************
+                  TI ARM Linker PC v5.1.7                      
+******************************************************************************
+>> Linked Fri Aug 08 11:02:53 2014
+
+OUTPUT FILE NAME:   <i2crf430cl330_load_TivaTM4C1294NCPDT.out>
+ENTRY POINT SYMBOL: "_c_int00"  address: 00000a41
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  FLASH                 00000000   00100000  00001200  000fee00  R  X
+  SRAM                  20000000   00040000  0000051c  0003fae4  RW X
+
+
+SEGMENT ALLOCATION MAP
+
+run origin  load origin   length   init length attrs members
+----------  ----------- ---------- ----------- ----- -------
+00000000    00000000    00001200   00001200    r-x
+  00000000    00000000    0000107c   0000107c    r-x .text
+  0000107c    0000107c    0000014c   0000014c    r-- .const
+  000011c8    000011c8    00000038   00000038    r-- .cinit
+20000000    20000000    0000051c   00000000    rw-
+  20000000    20000000    00000300   00000000    rw- .stack
+  20000300    20000300    00000200   00000000    rw- .bss
+  20000500    20000500    0000001c   00000000    rw- .data
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.bootVecs 
+*          0    00000000    00000008     DSECT
+                  00000000    00000008     boot.aem4f : boot.oem4f (.bootVecs)
+
+xdc.meta   0    00000000    00000000     COPY SECTION
+
+xdc.noload 
+*          0    00000000    00000000     COPY SECTION
+
+.text      0    00000000    0000107c     
+                  00000000    00000174     sysbios.aem4f : BIOS.obj (.text:ti_sysbios_knl_Semaphore_pend__E)
+                  00000174    00000130     driverlib.lib : gpio.obj (.text:GPIOPadConfigSet)
+                  000002a4    000000d8     i2c_tivaware.aem4f : I2CTiva.oem4f (.text:I2CTiva_open)
+                  0000037c    000000d6                        : I2CTiva.oem4f (.text:I2CTiva_hwiFxn)
+                  00000452    00000002     --HOLE-- [fill = 0]
+                  00000454    000000cc     EK_TM4C1294XL.obj (.text:EK_TM4C1294XL_initI2C)
+                  00000520    000000b8     EK_TM4C1294XL.obj (.text:EK_TM4C1294XL_initGeneral)
+                  000005d8    000000a4     i2crf430cl330_load.obj (.text:main)
+                  0000067c    000000a0     auto_init.aem4f : auto_init.oem4f (.text)
+                  0000071c    0000009c     rtsv7M4_T_le_v4SPD16_eabi.lib : memcpy_t2.obj (.text)
+                  000007b8    00000088     sysbios.aem4f : BIOS.obj (.text:ti_sysbios_knl_Task_schedule__I)
+                  00000840    0000007e     i2c_tivaware.aem4f : I2CTiva.oem4f (.text:I2CTiva_transfer)
+                  000008be    00000002     --HOLE-- [fill = 0]
+                  000008c0    00000064     sysbios.aem4f : BIOS.obj (.text:ti_sysbios_knl_Semaphore_post__E)
+                  00000924    00000062     i2c_tivaware.aem4f : I2CTiva.oem4f (.text:I2CTiva_primeTransfer)
+                  00000986    0000005e     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_rle.obj (.text)
+                  000009e4    0000005c     sysbios.aem4f : BIOS.obj (.text:ti_sysbios_knl_Task_unblockI__E)
+                  00000a40    00000058     boot.aem4f : boot.oem4f (.text)
+                  00000a98    00000050     ti.targets.arm.rtsarm.aem4f : Startup.oem4f (.text:xdc_runtime_Startup_exec__E)
+                  00000ae8    0000004c     rtsv7M4_T_le_v4SPD16_eabi.lib : rand.obj (.text)
+                  00000b34    00000048     driverlib.lib : gpio.obj (.text:GPIOPinConfigure)
+                  00000b7c    00000048                   : i2c.obj (.text:I2CMasterInitExpClk)
+                  00000bc4    00000044     rtsv7M4_T_le_v4SPD16_eabi.lib : cpy_tbl.obj (.text)
+                  00000c08    00000044     sysbios.aem4f : BIOS.obj (.text:ti_sysbios_family_arm_m3_Hwi_disableInterrupt__E)
+                  00000c4c    00000044                   : BIOS.obj (.text:ti_sysbios_family_arm_m3_Hwi_enableInterrupt__E)
+                  00000c90    00000044                   : BIOS.obj (.text:ti_sysbios_knl_Task_allBlockedFunction__I)
+                  00000cd4    0000003a     i2c_tivaware.aem4f : I2CTiva.oem4f (.text:I2CTiva_completeTransfer)
+                  00000d0e    00000002     --HOLE-- [fill = 0]
+                  00000d10    00000038                        : I2C.oem4f (.text:I2C_init)
+                  00000d48    00000034     driverlib.lib : sysctl.obj (.text:SysCtlPeripheralEnable)
+                  00000d7c    00000032     sysbios.aem4f : BIOS.obj (.text:ti_sysbios_knl_Semaphore_pendTimeout__I)
+                  00000dae    00000030     i2c_tivaware.aem4f : I2CTiva.oem4f (.text:I2CTiva_close)
+                  00000dde    00000002     --HOLE-- [fill = 0]
+                  00000de0    00000030     ti.targets.arm.rtsarm.aem4f : System.oem4f (.text:xdc_runtime_System_processAtExit__E)
+                  00000e10    0000002c     EK_TM4C1294XL.obj (.text:EK_TM4C1294XL_initGPIO)
+                  00000e3c    0000002a     driverlib.lib : gpio.obj (.text:GPIODirModeSet)
+                  00000e66    00000002     --HOLE-- [fill = 0]
+                  00000e68    00000028     gpio_tivaware.aem4f : GPIO.oem4f (.text:GPIO_write)
+                  00000e90    00000028     sysbios.aem4f : BIOS.obj (.text:ti_sysbios_knl_Task_restore__E)
+                  00000eb8    00000024     gpio_tivaware.aem4f : GPIO.oem4f (.text:GPIO_init)
+                  00000edc    00000020     sysbios.aem4f : BIOS.obj (.text:ti_sysbios_knl_Idle_run__E)
+                  00000efc    0000001c                   : BIOS.obj (.text:ti_sysbios_knl_Queue_put__E)
+                  00000f18    00000018     driverlib.lib : gpio.obj (.text:GPIOPinTypeGPIOOutput)
+                  00000f30    00000018     rtsv7M4_T_le_v4SPD16_eabi.lib : args_main.obj (.text)
+                  00000f48    00000018     ti.targets.arm.rtsarm.aem4f : System.oem4f (.text:xdc_runtime_System_exit__E)
+                  00000f60    00000016     driverlib.lib : i2c.obj (.text:I2CMasterErr)
+                  00000f76    00000002     --HOLE-- [fill = 0]
+                  00000f78    00000014     rtsv7M4_T_le_v4SPD16_eabi.lib : _lock.obj (.text)
+                  00000f8c    00000012     driverlib.lib : gpio.obj (.text:GPIOPinTypeGPIOInput)
+                  00000f9e    00000012                   : gpio.obj (.text:GPIOPinTypeI2C)
+                  00000fb0    00000012                   : gpio.obj (.text:GPIOPinTypeI2CSCL)
+                  00000fc2    00000012     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_zero_init.obj (.text:decompress:ZI)
+                  00000fd4    00000010     sysbios.aem4f : BIOS.obj (.text:ti_sysbios_BIOS_getCpuFreq__E)
+                  00000fe4    00000010                   : BIOS.obj (.text:ti_sysbios_BIOS_start__E)
+                  00000ff4    0000000e     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_none.obj (.text:decompress:none)
+                  00001002    0000000c     sysbios.aem4f : BIOS.obj (.text:ti_sysbios_family_arm_m3_Hwi_disableFxn__E)
+                  0000100e    00000002     --HOLE-- [fill = 0]
+                  00001010    0000000c     ti.targets.arm.rtsarm.aem4f : Gate.oem4f (.text:xdc_runtime_Gate_enterSystem__E)
+                  0000101c    0000000a     driverlib.lib : i2c.obj (.text:I2CMasterDisable)
+                  00001026    0000000a                   : i2c.obj (.text:I2CMasterEnable)
+                  00001030    0000000a     i2c_tivaware.aem4f : I2CTiva.oem4f (.text:I2CTiva_init)
+                  0000103a    00000008     driverlib.lib : i2c.obj (.text:I2CMasterIntClear)
+                  00001042    00000008                   : i2c.obj (.text:I2CMasterSlaveAddrSet)
+                  0000104a    00000008     i2c_tivaware.aem4f : I2CTiva.oem4f (.text:I2CTiva_blockingCallback)
+                  00001052    00000006     driverlib.lib : gpio.obj (.text:GPIOPinWrite)
+                  00001058    00000006                   : i2c.obj (.text:I2CMasterIntDisable)
+                  0000105e    00000006                   : i2c.obj (.text:I2CMasterIntEnable)
+                  00001064    00000006     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_rle.obj (.text:decompress:rle24)
+                  0000106a    00000006     sysbios.aem4f : BIOS.obj (.text:ti_sysbios_family_arm_m3_Hwi_restoreFxn__E)
+                  00001070    00000004     driverlib.lib : i2c.obj (.text:I2CMasterControl)
+                  00001074    00000004                   : i2c.obj (.text:I2CMasterDataGet)
+                  00001078    00000004                   : i2c.obj (.text:I2CMasterDataPut)
+
+.init_array 
+*          0    00000000    00000000     UNINITIALIZED
+
+.const     0    0000107c    0000014c     
+                  0000107c    00000090     driverlib.lib : gpio.obj (.const:g_pui32GPIOBaseAddrs)
+                  0000110c    0000003c     EK_TM4C1294XL.obj (.const:I2C_config)
+                  00001148    00000034     EK_TM4C1294XL.obj (.const)
+                  0000117c    00000030     EK_TM4C1294XL.obj (.const:gpioHWAttrs)
+                  000011ac    00000010     i2c_tivaware.aem4f : I2CTiva.oem4f (.const)
+                  000011bc    0000000c                        : I2C.oem4f (.const)
+
+.cinit     0    000011c8    00000038     
+                  000011c8    00000013     (.cinit..data.load) [load image, compression = rle]
+                  000011db    00000001     --HOLE-- [fill = 0]
+                  000011dc    0000000c     (__TI_handler_table)
+                  000011e8    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  000011f0    00000010     (__TI_cinit_table)
+
+.stack     0    20000000    00000300     UNINITIALIZED
+                  20000000    00000300     --HOLE--
+
+.bss       0    20000300    00000200     UNINITIALIZED
+                  20000300    00000200     EK_TM4C1294XL.obj (.bss:i2cTivaObjects)
+
+.data      0    20000500    0000001c     UNINITIALIZED
+                  20000500    00000008     gpio_tivaware.aem4f : GPIO.oem4f (.data)
+                  20000508    00000008     rtsv7M4_T_le_v4SPD16_eabi.lib : _lock.obj (.data)
+                  20000510    00000004     i2c_tivaware.aem4f : I2C.oem4f (.data)
+                  20000514    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : rand.obj (.data)
+                  20000518    00000004                                   : stkdepth_vars.obj (.data)
+
+
+LINKER GENERATED COPY TABLES
+
+__TI_cinit_table @ 000011f0 records: 2, size/record: 8, table size: 16
+	.data: load addr=000011c8, load size=00000013 bytes, run addr=20000500, run size=0000001c bytes, compression=rle
+	.bss: load addr=000011e8, load size=00000008 bytes, run addr=20000300, run size=00000200 bytes, compression=zero_init
+
+
+LINKER GENERATED HANDLER TABLE
+
+__TI_handler_table @ 000011dc records: 3, size/record: 4, table size: 12
+	index: 0, handler: __TI_decompress_rle24
+	index: 1, handler: __TI_decompress_none
+	index: 2, handler: __TI_zero_init
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address    name
+--------   ----
+00000e11   EK_TM4C1294XL_initGPIO
+00000521   EK_TM4C1294XL_initGeneral
+00000455   EK_TM4C1294XL_initI2C
+00000e3d   GPIODirModeSet
+00000175   GPIOPadConfigSet
+00000b35   GPIOPinConfigure
+00000f8d   GPIOPinTypeGPIOInput
+00000f19   GPIOPinTypeGPIOOutput
+00000f9f   GPIOPinTypeI2C
+00000fb1   GPIOPinTypeI2CSCL
+00001053   GPIOPinWrite
+00001148   GPIO_config
+00000eb9   GPIO_init
+00000e69   GPIO_write
+00001071   I2CMasterControl
+00001075   I2CMasterDataGet
+00001079   I2CMasterDataPut
+0000101d   I2CMasterDisable
+00001027   I2CMasterEnable
+00000f61   I2CMasterErr
+00000b7d   I2CMasterInitExpClk
+0000103b   I2CMasterIntClear
+00001059   I2CMasterIntDisable
+0000105f   I2CMasterIntEnable
+00001043   I2CMasterSlaveAddrSet
+00000daf   I2CTiva_close
+000011ac   I2CTiva_fxnTable
+00001031   I2CTiva_init
+000002a5   I2CTiva_open
+00000841   I2CTiva_transfer
+0000110c   I2C_config
+000011bc   I2C_defaultParams
+00000d11   I2C_init
+UNDEFED    SHT$$INIT_ARRAY$$Base
+UNDEFED    SHT$$INIT_ARRAY$$Limit
+00000d49   SysCtlPeripheralEnable
+00000130   TSK_idle
+20000300   __STACK_END
+00000300   __STACK_SIZE
+20000200   __STACK_TOP
+000011f0   __TI_CINIT_Base
+00001200   __TI_CINIT_Limit
+000011dc   __TI_Handler_Table_Base
+000011e8   __TI_Handler_Table_Limit
+00000001   __TI_args_main
+0000067d   __TI_auto_init
+00000ff5   __TI_decompress_none
+00001065   __TI_decompress_rle24
+00000000   __TI_static_base__
+00000fc3   __TI_zero_init
+0000071d   __aeabi_memcpy
+0000071d   __aeabi_memcpy4
+0000071d   __aeabi_memcpy8
+ffffffff   __binit__
+ffffffff   __c_args__
+20000000   __stack
+00000f31   _args_main
+00000a41   _c_int00
+20000508   _lock
+00000f87   _nop
+00000f7f   _register_lock
+00000f79   _register_unlock
+2000050c   _unlock
+ffffffff   binit
+00000bc5   copy_in
+0000117c   gpioHWAttrs
+0000115c   i2cTivaHWAttrs
+20000300   i2cTivaObjects
+000005d9   main
+20000518   main_func_sp
+0000071d   memcpy
+00000aff   rand
+00000ae9   srand
+UNDEFED    ti_sysbios_BIOS_Module__state__V
+00000fd5   ti_sysbios_BIOS_getCpuFreq__E
+00000fe5   ti_sysbios_BIOS_start__E
+00000fd5   ti_sysbios_family_arm_lm4_TimestampProvider_getFreq__E
+UNDEFED    ti_sysbios_family_arm_m3_Hwi_Params__init__S
+UNDEFED    ti_sysbios_family_arm_m3_Hwi_construct
+UNDEFED    ti_sysbios_family_arm_m3_Hwi_destruct
+00001003   ti_sysbios_family_arm_m3_Hwi_disableFxn__E
+00000c09   ti_sysbios_family_arm_m3_Hwi_disableInterrupt__E
+00000c4d   ti_sysbios_family_arm_m3_Hwi_enableInterrupt__E
+e000e000   ti_sysbios_family_arm_m3_Hwi_nvic
+0000106b   ti_sysbios_family_arm_m3_Hwi_restoreFxn__E
+UNDEFED    ti_sysbios_knl_Clock_Module_State_clockQ__O
+UNDEFED    ti_sysbios_knl_Clock_Module__state__V
+UNDEFED    ti_sysbios_knl_Idle_funcList__C
+00000edd   ti_sysbios_knl_Idle_run__E
+00000efd   ti_sysbios_knl_Queue_put__E
+UNDEFED    ti_sysbios_knl_Semaphore_Instance_State_pendQ__O
+UNDEFED    ti_sysbios_knl_Semaphore_Params__init__S
+UNDEFED    ti_sysbios_knl_Semaphore_construct
+UNDEFED    ti_sysbios_knl_Semaphore_destruct
+00000d7d   ti_sysbios_knl_Semaphore_pendTimeout__I
+00000001   ti_sysbios_knl_Semaphore_pend__E
+000008c1   ti_sysbios_knl_Semaphore_post__E
+UNDEFED    ti_sysbios_knl_Task_Module__state__V
+UNDEFED    ti_sysbios_knl_Task_SupportProxy_swap__E
+UNDEFED    ti_sysbios_knl_Task_allBlockedFunc__C
+00000c91   ti_sysbios_knl_Task_allBlockedFunction__I
+UNDEFED    ti_sysbios_knl_Task_hooks__C
+00000e91   ti_sysbios_knl_Task_restore__E
+000007b9   ti_sysbios_knl_Task_schedule__I
+000009e5   ti_sysbios_knl_Task_unblockI__E
+00001011   xdc_runtime_Gate_enterSystem__E
+UNDEFED    xdc_runtime_Startup_Module__state__V
+00000001   xdc_runtime_Startup__EXECFXN__C
+00000001   xdc_runtime_Startup__RESETFXN__C
+UNDEFED    xdc_runtime_Startup_execImpl__C
+00000a99   xdc_runtime_Startup_exec__E
+UNDEFED    xdc_runtime_Startup_firstFxns__C
+UNDEFED    xdc_runtime_Startup_lastFxns__C
+UNDEFED    xdc_runtime_Startup_reset__I
+UNDEFED    xdc_runtime_System_Module_GateProxy_enter__E
+UNDEFED    xdc_runtime_System_Module__gateObj__C
+UNDEFED    xdc_runtime_System_Module__state__V
+UNDEFED    xdc_runtime_System_SupportProxy_exit__E
+UNDEFED    xdc_runtime_System_SupportProxy_flush__E
+UNDEFED    xdc_runtime_System_exitFxn__C
+00000f49   xdc_runtime_System_exit__E
+UNDEFED    xdc_runtime_System_flush__E
+UNDEFED    xdc_runtime_System_printf__E
+00000de1   xdc_runtime_System_processAtExit__E
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address    name
+--------   ----
+00000000   __TI_static_base__
+00000001   __TI_args_main
+00000001   ti_sysbios_knl_Semaphore_pend__E
+00000001   xdc_runtime_Startup__EXECFXN__C
+00000001   xdc_runtime_Startup__RESETFXN__C
+00000130   TSK_idle
+00000175   GPIOPadConfigSet
+000002a5   I2CTiva_open
+00000300   __STACK_SIZE
+00000455   EK_TM4C1294XL_initI2C
+00000521   EK_TM4C1294XL_initGeneral
+000005d9   main
+0000067d   __TI_auto_init
+0000071d   __aeabi_memcpy
+0000071d   __aeabi_memcpy4
+0000071d   __aeabi_memcpy8
+0000071d   memcpy
+000007b9   ti_sysbios_knl_Task_schedule__I
+00000841   I2CTiva_transfer
+000008c1   ti_sysbios_knl_Semaphore_post__E
+000009e5   ti_sysbios_knl_Task_unblockI__E
+00000a41   _c_int00
+00000a99   xdc_runtime_Startup_exec__E
+00000ae9   srand
+00000aff   rand
+00000b35   GPIOPinConfigure
+00000b7d   I2CMasterInitExpClk
+00000bc5   copy_in
+00000c09   ti_sysbios_family_arm_m3_Hwi_disableInterrupt__E
+00000c4d   ti_sysbios_family_arm_m3_Hwi_enableInterrupt__E
+00000c91   ti_sysbios_knl_Task_allBlockedFunction__I
+00000d11   I2C_init
+00000d49   SysCtlPeripheralEnable
+00000d7d   ti_sysbios_knl_Semaphore_pendTimeout__I
+00000daf   I2CTiva_close
+00000de1   xdc_runtime_System_processAtExit__E
+00000e11   EK_TM4C1294XL_initGPIO
+00000e3d   GPIODirModeSet
+00000e69   GPIO_write
+00000e91   ti_sysbios_knl_Task_restore__E
+00000eb9   GPIO_init
+00000edd   ti_sysbios_knl_Idle_run__E
+00000efd   ti_sysbios_knl_Queue_put__E
+00000f19   GPIOPinTypeGPIOOutput
+00000f31   _args_main
+00000f49   xdc_runtime_System_exit__E
+00000f61   I2CMasterErr
+00000f79   _register_unlock
+00000f7f   _register_lock
+00000f87   _nop
+00000f8d   GPIOPinTypeGPIOInput
+00000f9f   GPIOPinTypeI2C
+00000fb1   GPIOPinTypeI2CSCL
+00000fc3   __TI_zero_init
+00000fd5   ti_sysbios_BIOS_getCpuFreq__E
+00000fd5   ti_sysbios_family_arm_lm4_TimestampProvider_getFreq__E
+00000fe5   ti_sysbios_BIOS_start__E
+00000ff5   __TI_decompress_none
+00001003   ti_sysbios_family_arm_m3_Hwi_disableFxn__E
+00001011   xdc_runtime_Gate_enterSystem__E
+0000101d   I2CMasterDisable
+00001027   I2CMasterEnable
+00001031   I2CTiva_init
+0000103b   I2CMasterIntClear
+00001043   I2CMasterSlaveAddrSet
+00001053   GPIOPinWrite
+00001059   I2CMasterIntDisable
+0000105f   I2CMasterIntEnable
+00001065   __TI_decompress_rle24
+0000106b   ti_sysbios_family_arm_m3_Hwi_restoreFxn__E
+00001071   I2CMasterControl
+00001075   I2CMasterDataGet
+00001079   I2CMasterDataPut
+0000110c   I2C_config
+00001148   GPIO_config
+0000115c   i2cTivaHWAttrs
+0000117c   gpioHWAttrs
+000011ac   I2CTiva_fxnTable
+000011bc   I2C_defaultParams
+000011dc   __TI_Handler_Table_Base
+000011e8   __TI_Handler_Table_Limit
+000011f0   __TI_CINIT_Base
+00001200   __TI_CINIT_Limit
+20000000   __stack
+20000200   __STACK_TOP
+20000300   __STACK_END
+20000300   i2cTivaObjects
+20000508   _lock
+2000050c   _unlock
+20000518   main_func_sp
+e000e000   ti_sysbios_family_arm_m3_Hwi_nvic
+ffffffff   __binit__
+ffffffff   __c_args__
+ffffffff   binit
+UNDEFED    SHT$$INIT_ARRAY$$Base
+UNDEFED    SHT$$INIT_ARRAY$$Limit
+UNDEFED    ti_sysbios_BIOS_Module__state__V
+UNDEFED    ti_sysbios_family_arm_m3_Hwi_Params__init__S
+UNDEFED    ti_sysbios_family_arm_m3_Hwi_construct
+UNDEFED    ti_sysbios_family_arm_m3_Hwi_destruct
+UNDEFED    ti_sysbios_knl_Clock_Module_State_clockQ__O
+UNDEFED    ti_sysbios_knl_Clock_Module__state__V
+UNDEFED    ti_sysbios_knl_Idle_funcList__C
+UNDEFED    ti_sysbios_knl_Semaphore_Instance_State_pendQ__O
+UNDEFED    ti_sysbios_knl_Semaphore_Params__init__S
+UNDEFED    ti_sysbios_knl_Semaphore_construct
+UNDEFED    ti_sysbios_knl_Semaphore_destruct
+UNDEFED    ti_sysbios_knl_Task_Module__state__V
+UNDEFED    ti_sysbios_knl_Task_SupportProxy_swap__E
+UNDEFED    ti_sysbios_knl_Task_allBlockedFunc__C
+UNDEFED    ti_sysbios_knl_Task_hooks__C
+UNDEFED    xdc_runtime_Startup_Module__state__V
+UNDEFED    xdc_runtime_Startup_execImpl__C
+UNDEFED    xdc_runtime_Startup_firstFxns__C
+UNDEFED    xdc_runtime_Startup_lastFxns__C
+UNDEFED    xdc_runtime_Startup_reset__I
+UNDEFED    xdc_runtime_System_Module_GateProxy_enter__E
+UNDEFED    xdc_runtime_System_Module__gateObj__C
+UNDEFED    xdc_runtime_System_Module__state__V
+UNDEFED    xdc_runtime_System_SupportProxy_exit__E
+UNDEFED    xdc_runtime_System_SupportProxy_flush__E
+UNDEFED    xdc_runtime_System_exitFxn__C
+UNDEFED    xdc_runtime_System_flush__E
+UNDEFED    xdc_runtime_System_printf__E
+
+[124 symbols]

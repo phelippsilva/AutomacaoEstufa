@@ -1,0 +1,63 @@
+
+**** Build of configuration Debug for project i2crf430cl330_load_TivaTM4C1294NCPDT ****
+
+"c:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
+'Building file: ../EK_TM4C1294XL.c'
+'Invoking: ARM Compiler'
+"c:/ti/ccsv6/tools/compiler/arm_5.1.7/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me --include_path="c:/ti/ccsv6/tools/compiler/arm_5.1.7/include" --include_path="c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c" -g --gcc --define=PART_TM4C1294NCPDT --define=ccs --define=TIVAWARE --display_error_number --diag_warning=225 --diag_wrap=off --gen_func_subsections=on --preproc_with_compile --preproc_dependency="EK_TM4C1294XL.pp" --cmd_file="./configPkg/compiler.opt"  "../EK_TM4C1294XL.c"
+'Finished building: ../EK_TM4C1294XL.c'
+' '
+'Building file: ../i2crf430cl330_load.c'
+'Invoking: ARM Compiler'
+"c:/ti/ccsv6/tools/compiler/arm_5.1.7/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me --include_path="c:/ti/ccsv6/tools/compiler/arm_5.1.7/include" --include_path="c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c" -g --gcc --define=PART_TM4C1294NCPDT --define=ccs --define=TIVAWARE --display_error_number --diag_warning=225 --diag_wrap=off --gen_func_subsections=on --preproc_with_compile --preproc_dependency="i2crf430cl330_load.pp" --cmd_file="./configPkg/compiler.opt"  "../i2crf430cl330_load.c"
+'Finished building: ../i2crf430cl330_load.c'
+' '
+'Building target: i2crf430cl330_load_TivaTM4C1294NCPDT.out'
+'Invoking: ARM Linker'
+"c:/ti/ccsv6/tools/compiler/arm_5.1.7/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me -g --gcc --define=PART_TM4C1294NCPDT --define=ccs --define=TIVAWARE --display_error_number --diag_warning=225 --diag_wrap=off --gen_func_subsections=on -z -m"i2crf430cl330_load_TivaTM4C1294NCPDT.map" --heap_size=0 --stack_size=512 -i"c:/ti/ccsv6/tools/compiler/arm_5.1.7/lib" -i"c:/ti/ccsv6/tools/compiler/arm_5.1.7/include" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="i2crf430cl330_load_TivaTM4C1294NCPDT_linkInfo.xml" --rom_model -o "i2crf430cl330_load_TivaTM4C1294NCPDT.out" -l"./configPkg/linker.cmd"  "./i2crf430cl330_load.obj" "./EK_TM4C1294XL.obj" "../EK_TM4C1294XL.cmd" -l"libc.a" -l"c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/ccs/Debug/driverlib.lib" -l"c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/usblib/ccs/Debug/usblib.lib" 
+<Linking>
+error #10008-D: cannot find file
+   "C:\Users\Tiago\Documents\GitHub\AutomacaoEstufa\Workspace_CCS\i2crf430cl330
+   _load_TivaTM4C1294NCPDT\Debug\configPkg\package\cfg\i2crf430cl330_load_pem4f
+   .oem4f"
+
+ undefined                                        first referenced                                                                                                                      
+  symbol                                              in file                                                                                                                           
+ ---------                                        ----------------                                                                                                                      
+ ti_sysbios_BIOS_Module__state__V                 C:\Users\Tiago\Documents\GitHub\AutomacaoEstufa\Workspace_CCS\i2crf430cl330_load_TivaTM4C1294NCPDT\src\sysbios\sysbios.aem4f<BIOS.obj>
+ ti_sysbios_family_arm_m3_Hwi_Params__init__S     ./EK_TM4C1294XL.obj                                                                                                                   
+ ti_sysbios_family_arm_m3_Hwi_construct           ./EK_TM4C1294XL.obj                                                                                                                   
+ ti_sysbios_family_arm_m3_Hwi_destruct            C:\ti\tirtos_tivac_2_00_01_23\packages\ti\drivers\lib\nonInstrumented\i2c_tivaware.aem4f<I2CTiva.oem4f>                               
+ ti_sysbios_knl_Clock_Module_State_clockQ__O      C:\Users\Tiago\Documents\GitHub\AutomacaoEstufa\Workspace_CCS\i2crf430cl330_load_TivaTM4C1294NCPDT\src\sysbios\sysbios.aem4f<BIOS.obj>
+ ti_sysbios_knl_Clock_Module__state__V            C:\Users\Tiago\Documents\GitHub\AutomacaoEstufa\Workspace_CCS\i2crf430cl330_load_TivaTM4C1294NCPDT\src\sysbios\sysbios.aem4f<BIOS.obj>
+ ti_sysbios_knl_Idle_funcList__C                  C:\Users\Tiago\Documents\GitHub\AutomacaoEstufa\Workspace_CCS\i2crf430cl330_load_TivaTM4C1294NCPDT\src\sysbios\sysbios.aem4f<BIOS.obj>
+ ti_sysbios_knl_Semaphore_Instance_State_pendQ__O C:\Users\Tiago\Documents\GitHub\AutomacaoEstufa\Workspace_CCS\i2crf430cl330_load_TivaTM4C1294NCPDT\src\sysbios\sysbios.aem4f<BIOS.obj>
+ ti_sysbios_knl_Semaphore_Params__init__S         C:\ti\tirtos_tivac_2_00_01_23\packages\ti\drivers\lib\nonInstrumented\i2c_tivaware.aem4f<I2CTiva.oem4f>                               
+ ti_sysbios_knl_Semaphore_construct               C:\ti\tirtos_tivac_2_00_01_23\packages\ti\drivers\lib\nonInstrumented\i2c_tivaware.aem4f<I2CTiva.oem4f>                               
+ ti_sysbios_knl_Semaphore_destruct                C:\ti\tirtos_tivac_2_00_01_23\packages\ti\drivers\lib\nonInstrumented\i2c_tivaware.aem4f<I2CTiva.oem4f>                               
+ ti_sysbios_knl_Task_Module__state__V             C:\Users\Tiago\Documents\GitHub\AutomacaoEstufa\Workspace_CCS\i2crf430cl330_load_TivaTM4C1294NCPDT\src\sysbios\sysbios.aem4f<BIOS.obj>
+ ti_sysbios_knl_Task_SupportProxy_swap__E         C:\Users\Tiago\Documents\GitHub\AutomacaoEstufa\Workspace_CCS\i2crf430cl330_load_TivaTM4C1294NCPDT\src\sysbios\sysbios.aem4f<BIOS.obj>
+ ti_sysbios_knl_Task_allBlockedFunc__C            C:\Users\Tiago\Documents\GitHub\AutomacaoEstufa\Workspace_CCS\i2crf430cl330_load_TivaTM4C1294NCPDT\src\sysbios\sysbios.aem4f<BIOS.obj>
+ ti_sysbios_knl_Task_hooks__C                     C:\Users\Tiago\Documents\GitHub\AutomacaoEstufa\Workspace_CCS\i2crf430cl330_load_TivaTM4C1294NCPDT\src\sysbios\sysbios.aem4f<BIOS.obj>
+ xdc_runtime_Startup_Module__state__V             C:\ti\tirtos_tivac_2_00_01_23\products\bios_6_40_01_15\packages\ti\targets\arm\rtsarm\lib\ti.targets.arm.rtsarm.aem4f<Startup.oem4f>  
+ xdc_runtime_Startup_execImpl__C                  C:\ti\tirtos_tivac_2_00_01_23\products\bios_6_40_01_15\packages\ti\targets\arm\rtsarm\lib\ti.targets.arm.rtsarm.aem4f<Startup.oem4f>  
+ xdc_runtime_Startup_firstFxns__C                 C:\ti\tirtos_tivac_2_00_01_23\products\bios_6_40_01_15\packages\ti\targets\arm\rtsarm\lib\ti.targets.arm.rtsarm.aem4f<Startup.oem4f>  
+ xdc_runtime_Startup_lastFxns__C                  C:\ti\tirtos_tivac_2_00_01_23\products\bios_6_40_01_15\packages\ti\targets\arm\rtsarm\lib\ti.targets.arm.rtsarm.aem4f<Startup.oem4f>  
+ xdc_runtime_Startup_reset__I                     C:\ti\tirtos_tivac_2_00_01_23\products\bios_6_40_01_15\packages\ti\targets\arm\rtsarm\lib\boot.aem4f<boot.oem4f>                      
+ xdc_runtime_System_Module_GateProxy_enter__E     C:\ti\tirtos_tivac_2_00_01_23\products\bios_6_40_01_15\packages\ti\targets\arm\rtsarm\lib\ti.targets.arm.rtsarm.aem4f<Gate.oem4f>     
+ xdc_runtime_System_Module__gateObj__C            C:\ti\tirtos_tivac_2_00_01_23\products\bios_6_40_01_15\packages\ti\targets\arm\rtsarm\lib\ti.targets.arm.rtsarm.aem4f<Gate.oem4f>     
+ xdc_runtime_System_Module__state__V              C:\ti\tirtos_tivac_2_00_01_23\products\bios_6_40_01_15\packages\ti\targets\arm\rtsarm\lib\ti.targets.arm.rtsarm.aem4f<System.oem4f>   
+ xdc_runtime_System_SupportProxy_exit__E          C:\ti\tirtos_tivac_2_00_01_23\products\bios_6_40_01_15\packages\ti\targets\arm\rtsarm\lib\ti.targets.arm.rtsarm.aem4f<System.oem4f>   
+ xdc_runtime_System_SupportProxy_flush__E         C:\ti\tirtos_tivac_2_00_01_23\products\bios_6_40_01_15\packages\ti\targets\arm\rtsarm\lib\ti.targets.arm.rtsarm.aem4f<System.oem4f>   
+ xdc_runtime_System_exitFxn__C                    C:\ti\tirtos_tivac_2_00_01_23\products\bios_6_40_01_15\packages\ti\targets\arm\rtsarm\lib\ti.targets.arm.rtsarm.aem4f<System.oem4f>   
+ xdc_runtime_System_printf__E                     ./i2crf430cl330_load.obj                                                                                                              
+
+error #10234-D: unresolved symbols remain
+"./configPkg/linker.cmd", line 132: error #10104: undefined symbol "ti_sysbios_knl_Task_Object__table__V" used in expression
+
+error #10010: errors encountered during linking; "i2crf430cl330_load_TivaTM4C1294NCPDT.out" not built
+>> Compilation failure
+gmake: *** [i2crf430cl330_load_TivaTM4C1294NCPDT.out] Error 1
+gmake: Target `all' not remade because of errors.
+
+**** Build Finished ****
