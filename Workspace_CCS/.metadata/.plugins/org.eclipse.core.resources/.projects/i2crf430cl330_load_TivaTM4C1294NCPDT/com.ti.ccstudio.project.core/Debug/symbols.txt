@@ -1,6 +1,6 @@
 #define __unsigned_chars__ 1	/* Predefined */
-#define __DATE__ "Aug  8 2014"	/* Predefined */
-#define __TIME__ "10:51:40"	/* Predefined */
+#define __DATE__ "Aug 12 2014"	/* Predefined */
+#define __TIME__ "22:10:36"	/* Predefined */
 #define __STDC__ 1	/* Predefined */
 #define __edg_front_end__ 1	/* Predefined */
 #define __EDG_VERSION__ 404	/* Predefined */
@@ -36,4 +36,5 @@
 #define PART_TM4C1294NCPDT 1
 #define ccs 1
 #define TIVAWARE 1
+#define ccs ccs
 #define _OPTIMIZE_FOR_SPACE 1

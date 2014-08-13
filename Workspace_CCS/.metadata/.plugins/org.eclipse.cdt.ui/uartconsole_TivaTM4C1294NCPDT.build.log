@@ -1,0 +1,12 @@
+
+**** Build of configuration Debug for project uartconsole_TivaTM4C1294NCPDT ****
+
+"c:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
+'Building target: uartconsole_TivaTM4C1294NCPDT.out'
+'Invoking: ARM Linker'
+"c:/ti/ccsv6/tools/compiler/arm_5.1.7/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me -g --gcc --define=ccs="ccs" --define=PART_TM4C1294NCPDT --define=ccs --define=TIVAWARE --display_error_number --diag_warning=225 --diag_wrap=off --gen_func_subsections=on -z -m"uartconsole_TivaTM4C1294NCPDT.map" --heap_size=0 --stack_size=512 -i"c:/ti/ccsv6/tools/compiler/arm_5.1.7/lib" -i"c:/ti/ccsv6/tools/compiler/arm_5.1.7/include" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="uartconsole_TivaTM4C1294NCPDT_linkInfo.xml" --rom_model -o "uartconsole_TivaTM4C1294NCPDT.out" -l"./configPkg/linker.cmd"  "./EK_TM4C1294XL.obj" "./UARTUtils.obj" "./USBCDCD_LoggerIdle.obj" "./uartconsole.obj" "../EK_TM4C1294XL.cmd" -l"libc.a" -l"c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/ccs/Debug/driverlib.lib" -l"c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/usblib/ccs/Debug/usblib.lib" 
+<Linking>
+'Finished building target: uartconsole_TivaTM4C1294NCPDT.out'
+' '
+
+**** Build Finished ****
