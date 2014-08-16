@@ -44,7 +44,7 @@
 /* TI-RTOS Header files */
 // #include <ti/drivers/EMAC.h>
 #include <ti/drivers/GPIO.h>
-// #include <ti/drivers/I2C.h>
+#include <ti/drivers/I2C.h>
 // #include <ti/drivers/SDSPI.h>
 // #include <ti/drivers/SPI.h>
 #include <ti/drivers/UART.h>
@@ -56,9 +56,35 @@
 
 //minhas inclusões
 #include "UARTUtils.h"
-//#include <file.h>
 #include <stdio.h>
 #include <string.h>
+
+/*
+ * Inicio do RTC
+ */
+#define READ_COUNT 7
+
+unsigned long tsec, tmin, thour, tday, tdate, tmonth, tyear;
+
+unsigned char dec2bcd(unsigned char val) {
+	return ((val / 0xA * 0x10) + (val % 0xA));
+}
+
+unsigned char bin2bcd(unsigned char val) {
+	return (val + 6 * (val / 10));
+}
+unsigned char bcd2bin(unsigned char val) {
+	return (val - 6 * (val >> 4));
+}
+
+// convert BCD to binary
+unsigned char bcd2dec(unsigned char val) {
+	return ((val / 0x10 * 0xA) + (val % 0x10));
+}
+
+/*
+ * Fim do RTC
+ */
 
 /*
  *  ======== heartBeatFxn ========
@@ -73,30 +99,107 @@ Void heartBeatFxn(UArg arg0, UArg arg1) {
 }
 
 Void consoleFxn(UArg arg0, UArg arg1) {
-	char input[128];
-
+//char input[128];
 	printf("======== Bem Vindo ao sistema da estufa ========\n");
+//	printf(__TIME__);
+//	printf(__DATE__);
 	fflush(stdout);
-	while (true) {
-		/* Get the user's input */
-		scanf("%s", input);
-		/* Flush the remaining characters from stdin since they are not used. */
-		fflush(stdin);
-		printf("Você digitou: %s\n", input);
-		if (!strcmp(input, "sair")) {
-			/* Exit the console task */
-			printf("Deseja sair do console: S/N? ");
-			fflush(stdout);
-			scanf("%s", input);
-			fflush(stdin);
-			if ((input[0] == 's' || input[0] == 'S') && input[1] == 0x00) {
-				printf("Saindo do console, até mais :)\n");
-				Task_exit();
-			}
-		}
-		printf("\nComando: ");
+	fflush(stdin);
+//	while (true) {
+//		/* Get the user's input */
+//		scanf("%s", input);
+//		/* Flush the remaining characters from stdin since they are not used. */
+//		fflush(stdin);
+//		printf("Você digitou: %s\n", input);
+//		if (!strcmp(input, "sair")) {
+//			/* Exit the console task */
+//			printf("Deseja sair do console: S/N? ");
+//			fflush(stdout);
+//			scanf("%s", input);
+//			fflush(stdin);
+//			if ((input[0] == 's' || input[0] == 'S') && input[1] == 0x00) {
+//				printf("Saindo do console, até mais :)\n");
+//				Task_exit();
+//			}
+//		}
+//		printf("\nComando: ");
+//		fflush(stdout);
+//	}
+
+	I2C_Handle i2c;
+	UInt peripheralNum = 0; /* Such as I2C0 */
+	I2C_Params i2cParams;
+	I2C_Transaction i2cTransaction;
+	UChar writeBuffer[9];
+	//writeBuffer[0] = 0;
+	UChar readBuffer[READ_COUNT];
+	Bool transferOK;
+	I2C_Params_init(&i2cParams);
+	i2c = I2C_open(peripheralNum, &i2cParams);
+	if (i2c == NULL) {
+		printf("Não foi possível abrir a interface I2C0!\n");
 		fflush(stdout);
 	}
+
+	/*
+	 * Procedimento para ajustar a hora do RTC
+	 */
+	writeBuffer[0] = 0;
+	writeBuffer[1] = bin2bcd(0);
+	writeBuffer[2] = bin2bcd(59);
+	writeBuffer[3] = bin2bcd(21);
+	writeBuffer[4] = bin2bcd(5);
+	writeBuffer[5] = bin2bcd(15);
+	writeBuffer[6] = bin2bcd(8);
+	writeBuffer[7] = bin2bcd(14);
+	writeBuffer[8] = 0;
+
+//	i2cTransaction.slaveAddress = 0x68; /* 7-bit peripheral slave address */
+//	i2cTransaction.writeBuf = writeBuffer; /* Buffer to be written */
+//	i2cTransaction.writeCount = 9; /* Number of bytes to be written */
+//	i2cTransaction.readBuf = readBuffer; /* Buffer to be read */
+//	i2cTransaction.readCount = READ_COUNT; /* Number of bytes to be read */
+//	transferOK = I2C_transfer(i2c, &i2cTransaction); /* Perform I2C transfer */
+//	if (!transferOK) {
+//		printf("Falha na comunicação\n");
+//		fflush(stdout);
+//	}
+	/*
+	 * Final do procedimento para ajuste de hora do RTC
+	 */
+
+	i2cTransaction.slaveAddress = 0x68; /* 7-bit peripheral slave address */
+	i2cTransaction.writeBuf = writeBuffer; /* Buffer to be written */
+	i2cTransaction.writeCount = 1; /* Number of bytes to be written */
+	i2cTransaction.readBuf = readBuffer; /* Buffer to be read */
+	i2cTransaction.readCount = READ_COUNT; /* Number of bytes to be read */
+
+	while (1) {
+		Task_sleep(1000);
+		transferOK = I2C_transfer(i2c, &i2cTransaction); /* Perform I2C transfer */
+		if (!transferOK) {
+			printf("Falha na comunicação\n");
+			fflush(stdout);
+		}
+		tsec = bcd2dec(readBuffer[0]) & 0x7f;
+		tmin = bcd2dec(readBuffer[1]);
+		thour = bcd2dec(readBuffer[2]) & 0x3f;
+		tday = bcd2dec(readBuffer[3]);
+		tdate = bcd2dec(readBuffer[4]);
+		tmonth = bcd2dec(readBuffer[5]);
+		tyear = bcd2dec(readBuffer[6]);
+
+
+		printf("%d:%d:%d", thour, tmin, tsec);
+		fflush(stdout);
+		printf(" - %d - ", tday);
+		fflush(stdout);
+		printf("%d/%d/%d ", tdate, tmonth, tyear);
+		printf("\n");
+		fflush(stdout);
+
+	}
+//Task_exit();
 }
 /*
  *  ======== main ========
@@ -104,18 +207,20 @@ Void consoleFxn(UArg arg0, UArg arg1) {
 int main(void) {
 	/* Call board init functions. */
 	Board_initGeneral();
-	// Board_initEMAC();
+// Board_initEMAC();
 	Board_initGPIO();
-	// Board_initI2C();
-	// Board_initSDSPI();
-	// Board_initSPI();
+	Board_initI2C();
+// Board_initSDSPI();
+// Board_initSPI();
 	Board_initUART();
-	// Board_initUSB(Board_USBDEVICE);
-	// Board_initUSBMSCHFatFs();
-	// Board_initWatchdog();
+// Board_initUSB(Board_USBDEVICE);
+// Board_initUSBMSCHFatFs();
+// Board_initWatchdog();
 
-	/* Turn on user LED */
-	GPIO_write(Board_LED0, Board_LED_ON);
+	/* Turn off user LEDs */
+	GPIO_write(Board_LED0, Board_LED_OFF);
+	GPIO_write(Board_LED1, Board_LED_OFF);
+	GPIO_write(Board_LED2, Board_LED_OFF);
 
 	/*
 	 *  Add the UART device to the system.
