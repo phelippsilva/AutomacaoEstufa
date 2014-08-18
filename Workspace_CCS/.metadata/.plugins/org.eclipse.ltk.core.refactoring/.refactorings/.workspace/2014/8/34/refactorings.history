@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;central_Estufa/rtc.c&apos;" deleteContents="false" description="Delete resource &apos;central_Estufa/rtc.c&apos;" element1="/central_Estufa/rtc.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1408378436326"/>
+</session>

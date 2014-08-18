@@ -31,7 +31,7 @@
  */
 
 /*
- *  ======== empty.c ========
+ *  ======== principal.c ========
  */
 /* XDCtools Header files */
 #include <xdc/std.h>
@@ -59,32 +59,7 @@
 #include <stdio.h>
 #include <string.h>
 
-/*
- * Inicio do RTC
- */
-#define READ_COUNT 7
-
-unsigned long tsec, tmin, thour, tday, tdate, tmonth, tyear;
-
-unsigned char dec2bcd(unsigned char val) {
-	return ((val / 0xA * 0x10) + (val % 0xA));
-}
-
-unsigned char bin2bcd(unsigned char val) {
-	return (val + 6 * (val / 10));
-}
-unsigned char bcd2bin(unsigned char val) {
-	return (val - 6 * (val >> 4));
-}
-
-// convert BCD to binary
-unsigned char bcd2dec(unsigned char val) {
-	return ((val / 0x10 * 0xA) + (val % 0x10));
-}
-
-/*
- * Fim do RTC
- */
+#include "rtc.h"
 
 /*
  *  ======== heartBeatFxn ========
@@ -99,107 +74,80 @@ Void heartBeatFxn(UArg arg0, UArg arg1) {
 }
 
 Void consoleFxn(UArg arg0, UArg arg1) {
-//char input[128];
+	char input[128];
+	UChar data[7];
+
 	printf("======== Bem Vindo ao sistema da estufa ========\n");
 //	printf(__TIME__);
 //	printf(__DATE__);
 	fflush(stdout);
 	fflush(stdin);
-//	while (true) {
-//		/* Get the user's input */
-//		scanf("%s", input);
-//		/* Flush the remaining characters from stdin since they are not used. */
-//		fflush(stdin);
-//		printf("Você digitou: %s\n", input);
-//		if (!strcmp(input, "sair")) {
-//			/* Exit the console task */
-//			printf("Deseja sair do console: S/N? ");
-//			fflush(stdout);
-//			scanf("%s", input);
-//			fflush(stdin);
-//			if ((input[0] == 's' || input[0] == 'S') && input[1] == 0x00) {
-//				printf("Saindo do console, até mais :)\n");
-//				Task_exit();
-//			}
-//		}
-//		printf("\nComando: ");
-//		fflush(stdout);
-//	}
-
-	I2C_Handle i2c;
-	UInt peripheralNum = 0; /* Such as I2C0 */
-	I2C_Params i2cParams;
-	I2C_Transaction i2cTransaction;
-	UChar writeBuffer[9];
-	//writeBuffer[0] = 0;
-	UChar readBuffer[READ_COUNT];
-	Bool transferOK;
-	I2C_Params_init(&i2cParams);
-	i2c = I2C_open(peripheralNum, &i2cParams);
-	if (i2c == NULL) {
-		printf("Não foi possível abrir a interface I2C0!\n");
+	while (true) {
+		/* Get the user's input */
+		scanf("%s", input);
+		/* Flush the remaining characters from stdin since they are not used. */
 		fflush(stdout);
-	}
-
-	/*
-	 * Procedimento para ajustar a hora do RTC
-	 */
-	writeBuffer[0] = 0;
-	writeBuffer[1] = bin2bcd(0);
-	writeBuffer[2] = bin2bcd(59);
-	writeBuffer[3] = bin2bcd(21);
-	writeBuffer[4] = bin2bcd(5);
-	writeBuffer[5] = bin2bcd(15);
-	writeBuffer[6] = bin2bcd(8);
-	writeBuffer[7] = bin2bcd(14);
-	writeBuffer[8] = 0;
-
-//	i2cTransaction.slaveAddress = 0x68; /* 7-bit peripheral slave address */
-//	i2cTransaction.writeBuf = writeBuffer; /* Buffer to be written */
-//	i2cTransaction.writeCount = 9; /* Number of bytes to be written */
-//	i2cTransaction.readBuf = readBuffer; /* Buffer to be read */
-//	i2cTransaction.readCount = READ_COUNT; /* Number of bytes to be read */
-//	transferOK = I2C_transfer(i2c, &i2cTransaction); /* Perform I2C transfer */
-//	if (!transferOK) {
-//		printf("Falha na comunicação\n");
-//		fflush(stdout);
-//	}
-	/*
-	 * Final do procedimento para ajuste de hora do RTC
-	 */
-
-	i2cTransaction.slaveAddress = 0x68; /* 7-bit peripheral slave address */
-	i2cTransaction.writeBuf = writeBuffer; /* Buffer to be written */
-	i2cTransaction.writeCount = 1; /* Number of bytes to be written */
-	i2cTransaction.readBuf = readBuffer; /* Buffer to be read */
-	i2cTransaction.readCount = READ_COUNT; /* Number of bytes to be read */
-
-	while (1) {
-		Task_sleep(1000);
-		transferOK = I2C_transfer(i2c, &i2cTransaction); /* Perform I2C transfer */
-		if (!transferOK) {
-			printf("Falha na comunicação\n");
+		fflush(stdin);
+		if (!strcmp(input, "hora")) {
+			lerRTC(data);
+			switch (data[0]) {
+			case 1:
+				printf("Domingo");
+				fflush(stdout);
+				break;
+			case 2:
+				printf("Segunda-feira");
+				fflush(stdout);
+				break;
+			case 3:
+				printf("Terça-feira");
+				fflush(stdout);
+				break;
+			case 4:
+				printf("Quarta-feira");
+				fflush(stdout);
+				break;
+			case 5:
+				printf("Quinta-feira");
+				fflush(stdout);
+				break;
+			case 6:
+				printf("Sexta-feira");
+				fflush(stdout);
+				break;
+			case 7:
+				printf("Sábado");
+				fflush(stdout);
+				break;
+			}
+			printf(", %d do %d de %d", data[1], data[2], 2000 + data[3]);
 			fflush(stdout);
+			printf(". %d:%d:%d\n", data[4], data[5], data[6]);
+			fflush(stdout);
+//			}
 		}
-		tsec = bcd2dec(readBuffer[0]) & 0x7f;
-		tmin = bcd2dec(readBuffer[1]);
-		thour = bcd2dec(readBuffer[2]) & 0x3f;
-		tday = bcd2dec(readBuffer[3]);
-		tdate = bcd2dec(readBuffer[4]);
-		tmonth = bcd2dec(readBuffer[5]);
-		tyear = bcd2dec(readBuffer[6]);
+		if (!strcmp(input, "ajustar")) {
+			ajustarRTC();
+		}
+		if (!strcmp(input, "moo")) {
+			printf("Ainda não tenho easter eggs!\n");
+		}
 
-
-		printf("%d:%d:%d", thour, tmin, tsec);
+		if (!strcmp(input, "sair")) {
+			/* Exit the console task */
+			printf("Deseja sair do console: S/N? ");
+			fflush(stdout);
+			scanf("%s", input);
+			fflush(stdin);
+			if ((input[0] == 's' || input[0] == 'S') && input[1] == 0x00) {
+				printf("Saindo do console, até mais :)\n");
+				Task_exit();
+			}
+		}
+		printf("\nComando: ");
 		fflush(stdout);
-		printf(" - %d - ", tday);
-		fflush(stdout);
-		printf("%d/%d/%d ", tdate, tmonth, tyear);
-		printf("\n");
-		fflush(stdout);
-
 	}
-//Task_exit();
+	//Task_exit();
 }
 /*
  *  ======== main ========

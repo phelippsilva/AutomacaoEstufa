@@ -171,6 +171,8 @@ principal.obj: c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12
 principal.obj: c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/uart.h
 principal.obj: c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/ssi.h
 principal.obj: c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/watchdog.h
+principal.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/I2C.h
+principal.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stddef.h
 principal.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/UART.h
 principal.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stddef.h
 principal.obj: ../Board.h
@@ -353,6 +355,8 @@ c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/
 c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/uart.h: 
 c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/ssi.h: 
 c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/watchdog.h: 
+C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/I2C.h: 
+c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stddef.h: 
 C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/UART.h: 
 c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stddef.h: 
 ../Board.h: 

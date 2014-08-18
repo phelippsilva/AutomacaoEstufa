@@ -194,9 +194,9 @@ EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/GPIO.h
 EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/ENV.h
 EK_TM4C1294XL.obj: c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/uart.h
 EK_TM4C1294XL.obj: c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/watchdog.h
-EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/UART.h
+EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/I2C.h
 EK_TM4C1294XL.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stddef.h
-EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/uart/UARTTiva.h
+EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/i2c/I2CTiva.h
 EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/family/arm/m3/Hwi.h
 EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/Semaphore.h
 EK_TM4C1294XL.obj: c:/ti/xdctools_3_30_01_25_core/packages/xdc/runtime/Types.h
@@ -220,6 +220,11 @@ EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packag
 EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/Task.h
 EK_TM4C1294XL.obj: c:/ti/xdctools_3_30_01_25_core/packages/xdc/runtime/IModule.h
 EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/Event__epilogue.h
+EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/UART.h
+EK_TM4C1294XL.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stddef.h
+EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/uart/UARTTiva.h
+EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/family/arm/m3/Hwi.h
+EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/Semaphore.h
 
 ../EK_TM4C1294XL.c: 
 c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stdint.h: 
@@ -415,9 +420,9 @@ C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/GPIO.h:
 C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/ENV.h: 
 c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/uart.h: 
 c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/watchdog.h: 
-C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/UART.h: 
+C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/I2C.h: 
 c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stddef.h: 
-C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/uart/UARTTiva.h: 
+C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/i2c/I2CTiva.h: 
 C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/family/arm/m3/Hwi.h: 
 C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/Semaphore.h: 
 c:/ti/xdctools_3_30_01_25_core/packages/xdc/runtime/Types.h: 
@@ -441,3 +446,8 @@ C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/C
 C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/Task.h: 
 c:/ti/xdctools_3_30_01_25_core/packages/xdc/runtime/IModule.h: 
 C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/Event__epilogue.h: 
+C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/UART.h: 
+c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stddef.h: 
+C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/uart/UARTTiva.h: 
+C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/family/arm/m3/Hwi.h: 
+C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/Semaphore.h: 

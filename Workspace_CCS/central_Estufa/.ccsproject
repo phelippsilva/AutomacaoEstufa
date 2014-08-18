@@ -10,4 +10,5 @@
 	<rts value="libc.a"/>
 	<createSlaveProjects value=""/>
 	<templateProperties value="id=com.ti.rtsc.TIRTOStivac.example_6,type=rtsc,products=com.ti.rtsc.TIRTOStivac,xdcToolsVersion=3.30.01.25_core,platform=ti.platforms.tiva:TM4C1294NCPDT,buildProfile=release,isHybrid=true,"/>
+	<isTargetManual value="false"/>
 </projectOptions>

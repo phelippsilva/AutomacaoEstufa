@@ -13,6 +13,7 @@
 -l"C:\ti\tirtos_tivac_2_00_01_23\products\uia_2_00_00_28\packages\ti\uia\sysbios\lib\release\ti.uia.sysbios.aem4f"
 -l"C:\ti\tirtos_tivac_2_00_01_23\products\uia_2_00_00_28\packages\ti\uia\loggers\lib\release\ti.uia.loggers.aem4f"
 -l"C:\ti\tirtos_tivac_2_00_01_23\packages\ti\drivers\lib\instrumented\gpio_tivaware.aem4f"
+-l"C:\ti\tirtos_tivac_2_00_01_23\packages\ti\drivers\lib\instrumented\i2c_tivaware.aem4f"
 -l"C:\ti\tirtos_tivac_2_00_01_23\packages\ti\drivers\lib\instrumented\uart_tivaware.aem4f"
 -l"C:\Users\Tiago\Documents\GitHub\AutomacaoEstufa\Workspace_CCS\central_Estufa\src\sysbios\sysbios.aem4f"
 -l"C:\ti\tirtos_tivac_2_00_01_23\products\bios_6_40_01_15\packages\ti\catalog\arm\cortexm4\tiva\ce\lib\Boot.aem4f"
