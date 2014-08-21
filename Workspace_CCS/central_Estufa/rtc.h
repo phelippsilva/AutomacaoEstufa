@@ -3,6 +3,10 @@
  *
  *  Created on: 18/08/2014
  *      Author: Tiago
+ *
+ *      Pinagem:
+ *      SCL: PB2
+ *      SDA: PB3
  */
 /* XDCtools Header files */
 #include <xdc/cfg/global.h>

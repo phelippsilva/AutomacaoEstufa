@@ -1,0 +1,298 @@
+/*
+ * Copyright (c) 2014, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/*
+ *  ======== principal.c ========
+ */
+/* XDCtools Header files */
+#include <xdc/std.h>
+#include <xdc/cfg/global.h>
+#include <xdc/runtime/System.h>
+
+/* BIOS Header files */
+#include <ti/sysbios/BIOS.h>
+#include <ti/sysbios/knl/Clock.h>
+
+/* TI-RTOS Header files */
+// #include <ti/drivers/EMAC.h>
+#include <ti/drivers/GPIO.h>
+#include <ti/drivers/I2C.h>
+#include <ti/drivers/SDSPI.h>
+// #include <ti/drivers/SPI.h>
+#include <ti/drivers/UART.h>
+// #include <ti/drivers/USBMSCHFatFs.h>
+// #include <ti/drivers/Watchdog.h>
+
+/* Example/Board Header files */
+#include "Board.h"
+
+//minhas inclusões
+#include "UARTUtils.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#include <stdint.h>
+//#include <ti/sysbios/fatfs/ff.h>
+//#include <ti/sysbios/fatfs/diskio.h>
+
+#include "rtc.h"
+
+/* Buffer size used for the file copy process */
+#ifndef CPY_BUFF_SIZE
+#define CPY_BUFF_SIZE       2048
+#endif
+
+/* String conversion macro */
+#define STR_(n)             #n
+#define STR(n)              STR_(n)
+
+/* Drive number used for FatFs */
+#define DRIVE_NUM           0
+
+const char inputfile[] = "fat:"STR(DRIVE_NUM)":input.txt";
+const char outputfile[] = "fat:"STR(DRIVE_NUM)":output.txt";
+
+const char textarray[] =
+		"***********************************************************************\n"
+				"0         1         2         3         4         5         6         7\n"
+				"01234567890123456789012345678901234567890123456789012345678901234567890\n"
+				"This is some text to be inserted into the inputfile if there isn't     \n"
+				"already an existing file located on the SDCard.                        \n"
+				"If an inputfile already exists, or if the file was already once        \n"
+				"generated, then the inputfile will NOT be modified.                    \n"
+				"***********************************************************************\n";
+
+unsigned char cpy_buff[CPY_BUFF_SIZE + 1];
+Void fatSDTaskFxn(UArg arg0, UArg arg1) {
+	Task_exit();
+
+}
+void sd() {
+	/* Drive number used for FatFs */
+#define SD_DRIVE_NUM 0
+	/* Tamanho do buffer */
+#define CPY_BUFF_SIZE       2048
+
+	SDSPI_Handle sdspiHandle;
+	SDSPI_Params sdspiParams;
+	FILE *src;
+	char bytesRead;
+
+	/* Variáveis ​​para acompanhar o progresso de manipulação de arquivos*/
+//	unsigned int bytesRead = 0;
+//
+//	unsigned char cpy_buff[CPY_BUFF_SIZE + 1];
+//
+	const Char inputfilesd[] = "fat:0:teste.txt";
+	printf("Tentando criar o arquivo: %s\n", inputfilesd);
+	/* Mount and register the SD Card */
+	SDSPI_Params_init(&sdspiParams);
+	sdspiHandle = SDSPI_open(Board_SDSPI0, SD_DRIVE_NUM, &sdspiParams);
+	if (sdspiHandle == NULL) {
+		printf("Erro ao iniciar o SD card!\n");
+	} else {
+		printf("Drive %u montado!\n", SD_DRIVE_NUM);
+	}
+	/* Tenta abrir o arquivo */
+	src = fopen(inputfilesd, "r");
+//	src = fopen(inputfilesd, "w+");
+	if (!src) {
+		printf("Não foi possivel abrir o arquivo!");
+		Task_sleep(10);
+		SDSPI_close(sdspiHandle);
+		Task_sleep(10);
+		Task_exit();
+	} else {
+		printf("Arquivo criado!");
+	}
+	while (true) {
+		/*  Read from source file */
+		bytesRead = fread(cpy_buff, 1, CPY_BUFF_SIZE, src);
+		printf("%s", cpy_buff);
+		if (bytesRead == 0) {
+			break; /* Error or EOF */
+		}
+	}
+	fclose(src);
+	SDSPI_close(sdspiHandle);
+	printf("paro!");
+//	Task_exit();
+}
+/*
+ *  ======== heartBeatFxn ========
+ *  Toggle the Board_LED0. The Task_sleep is determined by arg0 which
+ *  is configured for the heartBeat Task instance.
+ */
+Void heartBeatFxn(UArg arg0, UArg arg1) {
+	while (1) {
+		Task_sleep((UInt) arg0);
+		GPIO_toggle(Board_LED0);
+	}
+}
+
+Void consoleFxn(UArg arg0, UArg arg1) {
+	char input[128];
+	UChar data[7];
+
+	printf("======== Bem Vindo ao sistema da estufa ========\n");
+//	printf(__TIME__);
+//	printf(__DATE__);
+	fflush(stdout);
+	fflush(stdin);
+
+	while (true) {
+		/* Get the user's input */
+		scanf("%s", input);
+		/* Flush the remaining characters from stdin since they are not used. */
+		fflush(stdout);
+		fflush(stdin);
+		if (!strcmp(input, "hora")) {
+			lerRTC(data);
+			switch (data[0]) {
+			case 1:
+				printf("Domingo");
+				fflush(stdout);
+				break;
+			case 2:
+				printf("Segunda-feira");
+				fflush(stdout);
+				break;
+			case 3:
+				printf("Terça-feira");
+				fflush(stdout);
+				break;
+			case 4:
+				printf("Quarta-feira");
+				fflush(stdout);
+				break;
+			case 5:
+				printf("Quinta-feira");
+				fflush(stdout);
+				break;
+			case 6:
+				printf("Sexta-feira");
+				fflush(stdout);
+				break;
+			case 7:
+				printf("Sábado");
+				fflush(stdout);
+				break;
+			}
+			printf(", %d do %d de %d", data[1], data[2], 2000 + data[3]);
+			fflush(stdout);
+			printf(". %d:%d:%d\n", data[4], data[5], data[6]);
+			fflush(stdout);
+		}
+
+		if (!strcmp(input, "ajustar")) {
+			ajustarRTC();
+		}
+		if (!strcmp(input, "ler")) {
+			sd();
+		}
+		if (!strcmp(input, "moo")) {
+			printf("Ainda não tenho easter eggs!\n");
+		}
+
+		if (!strcmp(input, "sair")) {
+			/* Exit the console task */
+			printf("Deseja sair do console: S/N? ");
+			fflush(stdout);
+			scanf("%s", input);
+			fflush(stdin);
+			if ((input[0] == 's' || input[0] == 'S') && input[1] == 0x00) {
+				break;
+			}
+		}
+		printf("\nComando: ");
+		fflush(stdout);
+	}
+	printf("Saindo do console, até mais :)\n");
+	Task_exit();
+}
+/*
+ *  ======== main ========
+ */
+int main(void) {
+	/* Call board init functions. */
+	Board_initGeneral();
+// Board_initEMAC();
+	Board_initGPIO();
+	Board_initI2C();
+	Board_initSDSPI();
+// Board_initSPI();
+	Board_initUART();
+// Board_initUSB(Board_USBDEVICE);
+// Board_initUSBMSCHFatFs();
+// Board_initWatchdog();
+
+	/* Turn off user LEDs */
+	GPIO_write(Board_LED0, Board_LED_OFF);
+	GPIO_write(Board_LED1, Board_LED_OFF);
+	GPIO_write(Board_LED2, Board_LED_OFF);
+
+	/*
+	 *  Add the UART device to the system.
+	 *  All UART peripherals must be setup and the module must be initialized
+	 *  before opening.  This is done by Board_initUART().  The functions used
+	 *  are implemented in UARTUtils.c.
+	 */
+	add_device("UART", _MSA, UARTUtils_deviceopen, UARTUtils_deviceclose,
+			UARTUtils_deviceread, UARTUtils_devicewrite, UARTUtils_devicelseek,
+			UARTUtils_deviceunlink, UARTUtils_devicerename);
+
+	/* Open UART0 for writing to stdout and set buffer */
+	freopen("UART:0", "w", stdout);
+	setvbuf(stdout, NULL, _IOLBF, 128);
+
+	/* Open UART0 for reading from stdin and set buffer */
+	freopen("UART:0", "r", stdin);
+	setvbuf(stdin, NULL, _IOLBF, 128);
+
+	/*
+	 *  Initialize UART port 0 used by SysCallback.  This and other SysCallback
+	 *  UART functions are implemented in UARTUtils.c. Calls to System_printf
+	 *  will go to UART0, the same as printf.
+	 */
+	UARTUtils_systemInit(0);
+
+	System_printf("Starting the example\nSystem provider is set to SysMin. "
+			"Halt the target to view any SysMin contents in ROV.\n");
+	/* SysMin will only print to the console when you call flush or exit */
+	System_flush();
+
+	/* Start BIOS */
+	BIOS_start();
+
+	return (0);
+}

@@ -16,7 +16,7 @@ extern const ti_sysbios_knl_Task_Handle heartBeatTask;
 
 #define TI_DRIVERS_I2C_INCLUDED 1
 
-#define TI_DRIVERS_SDSPI_INCLUDED 0
+#define TI_DRIVERS_SDSPI_INCLUDED 1
 
 #define TI_DRIVERS_SPI_INCLUDED 0
 

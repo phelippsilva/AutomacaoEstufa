@@ -1,0 +1,108 @@
+/*
+ * sd.c
+ *
+ *  Created on: 20/08/2014
+ *      Author: Tiago
+ */
+
+#include "sd.h"
+
+const char inputfilesd[] = "fat:"STR(DRIVE_NUM)":input.txt";
+
+const char textarray[] =
+		"***********************************************************************\n"
+				"0         1         2         3         4         5         6         7\n"
+				"01234567890123456789012345678901234567890123456789012345678901234567890\n"
+				"This is some text to be inserted into the inputfile if there isn't     \n"
+				"already an existing file located on the SDCard.                        \n"
+				"If an inputfile already exists, or if the file was already once        \n"
+				"generated, then the inputfile will NOT be modified.                    \n"
+				"***********************************************************************\n";
+
+unsigned char cpy_buff[CPY_BUFF_SIZE + 1];
+
+void sdLe() {
+	/* Drive number used for FatFs */
+#define SD_DRIVE_NUM 0
+	/* Tamanho do buffer */
+
+	SDSPI_Handle sdspiHandle;
+	SDSPI_Params sdspiParams;
+	FILE *src;
+	char bytesRead;
+
+	/* Variáveis ​​para acompanhar o progresso de manipulação de arquivos*/
+//	unsigned int bytesRead = 0;
+//
+//	unsigned char cpy_buff[CPY_BUFF_SIZE + 1];
+//
+	/* Mount and register the SD Card */
+	SDSPI_Params_init(&sdspiParams);
+	sdspiHandle = SDSPI_open(Board_SDSPI0, SD_DRIVE_NUM, &sdspiParams);
+	if (sdspiHandle == NULL) {
+		printf("Erro ao iniciar o SD card!\n");
+		return;
+	} else {
+		printf("Drive %u montado!\n", SD_DRIVE_NUM);
+	}
+	/* Tenta abrir o arquivo */
+	src = fopen(inputfilesd, "r");
+	if (!src) {
+		printf("Nao foi possivel abrir o arquivo!\n");
+		Task_sleep(10);
+		SDSPI_close(sdspiHandle);
+		Task_sleep(10);
+		return;
+	} else {
+		printf("Arquivo aberto!\n\n");
+	}
+	while (true) {
+		/*  Le do arquivo */
+		bytesRead = fread(cpy_buff, 1, CPY_BUFF_SIZE, src);
+		printf("%s", cpy_buff);
+		if (bytesRead == 0) {
+			printf("\n\nFim do arquivo\n\n");
+			break; /* Error or EOF */
+		}
+	}
+	fclose(src);
+	SDSPI_close(sdspiHandle);
+}
+
+void sdEscreve(UChar conteudo[50]) {
+	const char outputfile[] = "fat:"STR(DRIVE_NUM)":input.txt";
+	/* Drive number used for FatFs */
+#define SD_DRIVE_NUM 0
+	/* Tamanho do buffer */
+
+	SDSPI_Handle sdspiHandle;
+	SDSPI_Params sdspiParams;
+	FILE *src;
+
+	/* Mount and register the SD Card */
+	SDSPI_Params_init(&sdspiParams);
+	sdspiHandle = SDSPI_open(Board_SDSPI0, SD_DRIVE_NUM, &sdspiParams);
+	if (sdspiHandle == NULL) {
+		printf("Erro ao iniciar o SD card!\n");
+		return;
+	} else {
+		printf("Drive %u montado!\n", SD_DRIVE_NUM);
+	}
+	/* Tenta abrir o arquivo */
+	src = fopen(outputfile, "a");
+	if (!src) {
+		printf("Nao foi possivel criar o arquivo!\n");
+		Task_sleep(10);
+		SDSPI_close(sdspiHandle);
+		Task_sleep(10);
+		return;
+	} else {
+		printf("Arquivo criado!\n\n");
+	}
+	/*  escreve do arquivo */
+	fwrite(conteudo, 1, strlen(conteudo), src);
+	fwrite("\n", 1, strlen("\n"),src);
+
+	fclose(src);
+	SDSPI_close(sdspiHandle);
+}

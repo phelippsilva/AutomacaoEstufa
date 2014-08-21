@@ -158,6 +158,8 @@ principal.obj: c:/ti/xdctools_3_30_01_25_core/packages/xdc/runtime/IInstance.h
 principal.obj: c:/ti/xdctools_3_30_01_25_core/packages/xdc/runtime/IGateProvider.h
 principal.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/BIOS__epilogue.h
 principal.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/package/BIOS_RtsGateProxy.h
+principal.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/Clock.h
+principal.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/package/Clock_TimerProxy.h
 principal.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/GPIO.h
 principal.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/ENV.h
 principal.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stdbool.h
@@ -173,6 +175,7 @@ principal.obj: c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12
 principal.obj: c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/watchdog.h
 principal.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/I2C.h
 principal.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stddef.h
+principal.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/SDSPI.h
 principal.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/UART.h
 principal.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stddef.h
 principal.obj: ../Board.h
@@ -183,8 +186,12 @@ principal.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stdarg.h
 principal.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/file.h
 principal.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stdio.h
 principal.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/string.h
+principal.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stdlib.h
 principal.obj: ../rtc.h
 principal.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stdio.h
+principal.obj: ../sd.h
+principal.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stdio.h
+principal.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/string.h
 
 ../principal.c: 
 c:/ti/xdctools_3_30_01_25_core/packages/xdc/std.h: 
@@ -344,6 +351,8 @@ c:/ti/xdctools_3_30_01_25_core/packages/xdc/runtime/IInstance.h:
 c:/ti/xdctools_3_30_01_25_core/packages/xdc/runtime/IGateProvider.h: 
 C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/BIOS__epilogue.h: 
 C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/package/BIOS_RtsGateProxy.h: 
+C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/Clock.h: 
+C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/package/Clock_TimerProxy.h: 
 C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/GPIO.h: 
 C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/ENV.h: 
 c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stdbool.h: 
@@ -359,6 +368,7 @@ c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/
 c:/ti/tirtos_tivac_2_00_01_23/products/TivaWare_C_Series-2.1.0.12573c/driverlib/watchdog.h: 
 C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/I2C.h: 
 c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stddef.h: 
+C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/SDSPI.h: 
 C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/UART.h: 
 c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stddef.h: 
 ../Board.h: 
@@ -369,5 +379,9 @@ c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stdarg.h:
 c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/file.h: 
 c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stdio.h: 
 c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/string.h: 
+c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stdlib.h: 
 ../rtc.h: 
 c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stdio.h: 
+../sd.h: 
+c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stdio.h: 
+c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/string.h: 

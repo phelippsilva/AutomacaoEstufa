@@ -9,3 +9,5 @@ encoding//Release/objects.mk=UTF-8
 encoding//Release/sources.mk=UTF-8
 encoding//Release/subdir_rules.mk=UTF-8
 encoding//Release/subdir_vars.mk=UTF-8
+encoding/principal.c=UTF-8
+encoding/sd.c=UTF-8

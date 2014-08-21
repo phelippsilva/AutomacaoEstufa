@@ -40,12 +40,13 @@
 
 /* BIOS Header files */
 #include <ti/sysbios/BIOS.h>
+#include <ti/sysbios/knl/Clock.h>
 
 /* TI-RTOS Header files */
 // #include <ti/drivers/EMAC.h>
 #include <ti/drivers/GPIO.h>
 #include <ti/drivers/I2C.h>
-// #include <ti/drivers/SDSPI.h>
+#include <ti/drivers/SDSPI.h>
 // #include <ti/drivers/SPI.h>
 #include <ti/drivers/UART.h>
 // #include <ti/drivers/USBMSCHFatFs.h>
@@ -54,12 +55,16 @@
 /* Example/Board Header files */
 #include "Board.h"
 
-//minhas inclusıes
+//minhas inclus√µes
 #include "UARTUtils.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
+#include <stdint.h>
 
 #include "rtc.h"
+#include "sd.h"
 
 /*
  *  ======== heartBeatFxn ========
@@ -76,78 +81,105 @@ Void heartBeatFxn(UArg arg0, UArg arg1) {
 Void consoleFxn(UArg arg0, UArg arg1) {
 	char input[128];
 	UChar data[7];
+	char conteudo[50];
 
 	printf("======== Bem Vindo ao sistema da estufa ========\n");
-//	printf(__TIME__);
-//	printf(__DATE__);
 	fflush(stdout);
 	fflush(stdin);
+
 	while (true) {
 		/* Get the user's input */
 		scanf("%s", input);
 		/* Flush the remaining characters from stdin since they are not used. */
 		fflush(stdout);
 		fflush(stdin);
-		if (!strcmp(input, "hora")) {
-			lerRTC(data);
-			switch (data[0]) {
-			case 1:
-				printf("Domingo");
-				fflush(stdout);
-				break;
-			case 2:
-				printf("Segunda-feira");
-				fflush(stdout);
-				break;
-			case 3:
-				printf("TerÁa-feira");
-				fflush(stdout);
-				break;
-			case 4:
-				printf("Quarta-feira");
-				fflush(stdout);
-				break;
-			case 5:
-				printf("Quinta-feira");
-				fflush(stdout);
-				break;
-			case 6:
-				printf("Sexta-feira");
-				fflush(stdout);
-				break;
-			case 7:
-				printf("S·bado");
-				fflush(stdout);
-				break;
-			}
-			printf(", %d do %d de %d", data[1], data[2], 2000 + data[3]);
-			fflush(stdout);
-			printf(". %d:%d:%d\n", data[4], data[5], data[6]);
-			fflush(stdout);
-//			}
-		}
-		if (!strcmp(input, "ajustar")) {
-			ajustarRTC();
-		}
-		if (!strcmp(input, "moo")) {
-			printf("Ainda n„o tenho easter eggs!\n");
-		}
 
-		if (!strcmp(input, "sair")) {
-			/* Exit the console task */
-			printf("Deseja sair do console: S/N? ");
-			fflush(stdout);
-			scanf("%s", input);
-			fflush(stdin);
-			if ((input[0] == 's' || input[0] == 'S') && input[1] == 0x00) {
-				printf("Saindo do console, atÈ mais :)\n");
-				Task_exit();
+		if (!strcmp(input, "oi")) {
+			printf("Oi, como vai voce?\n"
+					"Os comandos disponiveis sao os seguintes:\n\t"
+					"\"agora\", para saber a data e hora\n\t"
+					"\"ajustar\", para ajsutar o RTC\n\t");
+
+			printf("\"ler\", para ler o conteudo do arquivo \"input.txt\","
+					" que esta no cartao de memoria\n\t"
+					"\"escreve\", escreve uma linha no arquivo\n\t"
+					"\"sair\", para sair do terminal.\n");
+		} else {
+			if (!strcmp(input, "agora")) {
+				lerRTC(data);
+				switch (data[0]) {
+				case 1:
+					printf("Domingo");
+					fflush(stdout);
+					break;
+				case 2:
+					printf("Segunda-feira");
+					fflush(stdout);
+					break;
+				case 3:
+					printf("Ter√ßa-feira");
+					fflush(stdout);
+					break;
+				case 4:
+					printf("Quarta-feira");
+					fflush(stdout);
+					break;
+				case 5:
+					printf("Quinta-feira");
+					fflush(stdout);
+					break;
+				case 6:
+					printf("Sexta-feira");
+					fflush(stdout);
+					break;
+				case 7:
+					printf("S√°bado");
+					fflush(stdout);
+					break;
+				}
+				printf(", %d do %d de %d", data[1], data[2], 2000 + data[3]);
+				fflush(stdout);
+				printf(". %d:%d:%d\n", data[4], data[5], data[6]);
+				fflush(stdout);
+			} else {
+
+				if (!strcmp(input, "ajustar")) {
+					ajustarRTC();
+				} else {
+					if (!strcmp(input, "ler")) {
+						sdLe();
+					} else {
+						if (!strcmp(input, "escreve")) {
+							printf("Digite uma linha de conteudo: ");
+							fgets(conteudo, sizeof(conteudo),stdin);
+							sdEscreve(conteudo, sizeof(conteudo));
+						} else {
+							if (!strcmp(input, "moo")) {
+								printf("Ainda n√£o tenho easter eggs!\n");
+							} else {
+
+								if (!strcmp(input, "sair")) {
+									/* Exit the console task */
+									printf("Deseja sair do console: S/N? ");
+									fflush(stdout);
+									scanf("%s", input);
+									fflush(stdin);
+									if ((input[0] == 's' || input[0] == 'S')
+											&& input[1] == 0x00) {
+										break;
+									}
+								} else {
+									printf("Comando nao encontrado!\n");
+								}
+							}
+						}
+					}
+				}
 			}
 		}
-		printf("\nComando: ");
-		fflush(stdout);
 	}
-	//Task_exit();
+	printf("Saindo do console, ate mais :)\n");
+	Task_exit();
 }
 /*
  *  ======== main ========
@@ -158,7 +190,7 @@ int main(void) {
 // Board_initEMAC();
 	Board_initGPIO();
 	Board_initI2C();
-// Board_initSDSPI();
+	Board_initSDSPI();
 // Board_initSPI();
 	Board_initUART();
 // Board_initUSB(Board_USBDEVICE);

@@ -220,6 +220,12 @@ EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packag
 EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/Task.h
 EK_TM4C1294XL.obj: c:/ti/xdctools_3_30_01_25_core/packages/xdc/runtime/IModule.h
 EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/Event__epilogue.h
+EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/SDSPI.h
+EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/sdspi/SDSPITiva.h
+EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/fatfs/ff.h
+EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/fatfs/integer.h
+EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/fatfs/ffconf.h
+EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/fatfs/diskio.h
 EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/UART.h
 EK_TM4C1294XL.obj: c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stddef.h
 EK_TM4C1294XL.obj: C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/uart/UARTTiva.h
@@ -446,6 +452,12 @@ C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/C
 C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/Task.h: 
 c:/ti/xdctools_3_30_01_25_core/packages/xdc/runtime/IModule.h: 
 C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/knl/Event__epilogue.h: 
+C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/SDSPI.h: 
+C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/sdspi/SDSPITiva.h: 
+C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/fatfs/ff.h: 
+C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/fatfs/integer.h: 
+C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/fatfs/ffconf.h: 
+C:/ti/tirtos_tivac_2_00_01_23/products/bios_6_40_01_15/packages/ti/sysbios/fatfs/diskio.h: 
 C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/UART.h: 
 c:/ti/ccsv6/tools/compiler/arm_5.1.7/include/stddef.h: 
 C:/ti/tirtos_tivac_2_00_01_23/packages/ti/drivers/uart/UARTTiva.h: 

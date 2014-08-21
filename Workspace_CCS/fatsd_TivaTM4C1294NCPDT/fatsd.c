@@ -125,7 +125,7 @@ Void taskFxn(UArg arg0, UArg arg1)
         /* Open file for both reading and writing */
         src = fopen(inputfile, "w+");
         if (!src) {
-            System_printf("Error: \"%s\" could not be created\n",
+            System_printf("\nError: \"%s\" could not be created\n",
                     inputfile);
             System_abort("Aborting...\n");
         }

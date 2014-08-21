@@ -1,0 +1,210 @@
+ (routes 
+  (resolution mm 100000)
+  (parser
+  )
+  (parser
+  )
+  (structure_out
+   (layer TOP (type signal)
+   )
+   (layer I1 (type signal)
+   )
+   (layer I2 (type signal)
+   )
+   (layer I3 (type signal)
+   )
+   (layer I4 (type signal)
+   )
+   (layer I5 (type signal)
+   )
+   (layer I6 (type signal)
+   )
+   (layer I7 (type signal)
+   )
+   (layer I8 (type signal)
+   )
+   (layer I9 (type signal)
+   )
+   (layer I10 (type signal)
+   )
+   (layer I11 (type signal)
+   )
+   (layer I12 (type signal)
+   )
+   (layer I13 (type signal)
+   )
+   (layer I14 (type signal)
+   )
+   (layer BOT (type signal)
+   )
+  )
+  (library_out
+  (padstack $VIA_POWER
+   (shape (circ TOP 76200 0 0))
+   (shape (circ I1 76200 0 0))
+   (shape (circ I2 76200 0 0))
+   (shape (circ I3 76200 0 0))
+   (shape (circ I4 76200 0 0))
+   (shape (circ I5 76200 0 0))
+   (shape (circ I6 76200 0 0))
+   (shape (circ I7 76200 0 0))
+   (shape (circ I8 76200 0 0))
+   (shape (circ I9 76200 0 0))
+   (shape (circ I10 76200 0 0))
+   (shape (circ I11 76200 0 0))
+   (shape (circ I12 76200 0 0))
+   (shape (circ I13 76200 0 0))
+   (shape (circ I14 76200 0 0))
+   (shape (circ BOT 76200 0 0))
+  )
+  (padstack $VIA_SIGNAL
+   (shape (circ TOP 76200 0 0))
+   (shape (circ I1 76200 0 0))
+   (shape (circ I2 76200 0 0))
+   (shape (circ I3 76200 0 0))
+   (shape (circ I4 76200 0 0))
+   (shape (circ I5 76200 0 0))
+   (shape (circ I6 76200 0 0))
+   (shape (circ I7 76200 0 0))
+   (shape (circ I8 76200 0 0))
+   (shape (circ I9 76200 0 0))
+   (shape (circ I10 76200 0 0))
+   (shape (circ I11 76200 0 0))
+   (shape (circ I12 76200 0 0))
+   (shape (circ I13 76200 0 0))
+   (shape (circ I14 76200 0 0))
+   (shape (circ BOT 76200 0 0))
+  )
+  )
+  (network_out
+   (Net #00090 
+   (rule
+   )
+   (wire (path BOT 63500  3533000 4377000 3533000 4123000)
+    (connect (terminal pin SD_CARD-11) (terminal pin SD_CARD-10))
+   )
+   )
+   (Net #00092 
+   (rule
+   )
+   (wire (path BOT 63500  4041000 4377000 4041000 4123000)
+    (connect (terminal pin SD_CARD-15) (terminal pin SD_CARD-14))
+   )
+   )
+   (Net J1_+3V 
+   (rule
+   )
+   (wire (path BOT 63500  -7470000 7674000 -8142958 7674000 -8142958 5715000
+     -10795000 5715000 -10795000 8382000 -3722498 8382000 -3722498 3810000
+     3787000 3810000 3787000 4123000)
+    (connect (terminal pin J1-0) (terminal pin SD_CARD-12))
+   )
+   (wire (path BOT 63500  3787000 4123000 3787000 4377000)
+    (connect (terminal pin SD_CARD-12) (terminal pin SD_CARD-13))
+   )
+   )
+   (Net J1_+5V 
+   (rule
+   )
+   (wire (path BOT 63500  -7216001 7674000 -7216001 7874000 -8612051 7874000
+     -8612051 6624000 -10360000 6624000)
+    (connect (terminal pin J1-1) (terminal pin RTC-3))
+   )
+   )
+   (Net J1_GND 
+   (rule
+   )
+   (wire (path BOT 63500  -7216001 7420000 -7048500 7420000 -7048500 8001000
+     -10360000 8001000 -10360000 6824000)
+    (connect (terminal pin J1-3) (terminal pin RTC-4))
+   )
+   )
+   (Net J2_GND 
+   (rule
+   )
+   (wire (path BOT 63500  2263000 4377000 -3048000 4377000 -3048000 7810500
+     -2617001 7810500 -2617001 7651000)
+    (connect (terminal pin SD_CARD-1) (terminal pin J2-1))
+   )
+   (wire (path BOT 63500  2263000 4377000 2263000 4123000)
+    (connect (terminal pin SD_CARD-1) (terminal pin SD_CARD-0))
+   )
+   )
+   (Net J3_+3V 
+   (rule
+   )
+   )
+   (Net J3_+5V 
+   (rule
+   )
+   )
+   (Net J3_GND 
+   (rule
+   )
+   )
+   (Net J4_GND 
+   (rule
+   )
+   )
+   (Net RTC_SDA 
+   (rule
+   )
+   (wire (path BOT 63500  -7470000 5388000 -7470000 5207000 -6921500 5207000
+     -6921500 8128000 -10541000 8128000 -10541000 6424000 -10360000 6424000)
+    (connect (terminal pin J1-18) (terminal pin RTC-2))
+   )
+   )
+   (Net RTC_SDL 
+   (rule
+   )
+   (wire (path BOT 63500  -7470000 5642000 -7620000 5642000 -7620000 4953000
+     -6667500 4953000 -6667500 8255000 -10668000 8255000 -10668000 6224000
+     -10360000 6224000)
+    (connect (terminal pin J1-16) (terminal pin RTC-1))
+   )
+   )
+   (Net SD_CS 
+   (rule
+   )
+   (wire (path BOT 63500  -7470000 5896000 -7747000 5896000 -7747000 3683000
+     4191000 3683000 4191000 4699000 3279000 4699000 3279000 4377000)
+    (connect (terminal pin J1-14) (terminal pin SD_CARD-9))
+   )
+   (wire (path BOT 63500  3279000 4377000 3279000 4123000)
+    (connect (terminal pin SD_CARD-9) (terminal pin SD_CARD-8))
+   )
+   )
+   (Net SD_MISO 
+   (rule
+   )
+   (wire (path BOT 63500  -2617000 6127000 2517000 6127000 2517000 4377000)
+    (connect (terminal pin J2-13) (terminal pin SD_CARD-3))
+   )
+   (wire (path BOT 63500  2517000 4377000 2517000 4123000)
+    (connect (terminal pin SD_CARD-3) (terminal pin SD_CARD-2))
+   )
+   )
+   (Net SD_MOSI 
+   (rule
+   )
+   (wire (path BOT 63500  3025000 4377000 3025000 6381001 -2617000 6381001)
+    (connect (terminal pin SD_CARD-7) (terminal pin J2-11))
+   )
+   (wire (path BOT 63500  3025000 4377000 3025000 4123000)
+    (connect (terminal pin SD_CARD-7) (terminal pin SD_CARD-6))
+   )
+   )
+   (Net SD_SCK 
+   (rule
+   )
+   (wire (path BOT 63500  2771000 4123000 2771000 3937000 -3302000 3937000
+     -3302000 7937500 4445000 7937500 4445000 3429000 -7874000 3429000
+     -7874000 6150000 -7470000 6150000)
+    (connect (terminal pin SD_CARD-4) (terminal pin J1-12))
+   )
+   (wire (path BOT 63500  2771000 4123000 2771000 4377000)
+    (connect (terminal pin SD_CARD-4) (terminal pin SD_CARD-5))
+   )
+   )
+  )
+ )

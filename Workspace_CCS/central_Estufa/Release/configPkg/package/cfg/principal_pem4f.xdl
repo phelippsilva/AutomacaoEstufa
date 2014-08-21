@@ -14,7 +14,9 @@
 -l"C:\ti\tirtos_tivac_2_00_01_23\products\uia_2_00_00_28\packages\ti\uia\loggers\lib\release\ti.uia.loggers.aem4f"
 -l"C:\ti\tirtos_tivac_2_00_01_23\packages\ti\drivers\lib\instrumented\gpio_tivaware.aem4f"
 -l"C:\ti\tirtos_tivac_2_00_01_23\packages\ti\drivers\lib\instrumented\i2c_tivaware.aem4f"
+-l"C:\ti\tirtos_tivac_2_00_01_23\packages\ti\drivers\lib\nonInstrumented\sdspi_tivaware.aem4f"
 -l"C:\ti\tirtos_tivac_2_00_01_23\packages\ti\drivers\lib\instrumented\uart_tivaware.aem4f"
+-l"C:\ti\tirtos_tivac_2_00_01_23\products\bios_6_40_01_15\packages\ti\sysbios\fatfs\lib\release\ti.sysbios.fatfs.aem4f"
 -l"C:\Users\Tiago\Documents\GitHub\AutomacaoEstufa\Workspace_CCS\central_Estufa\src\sysbios\sysbios.aem4f"
 -l"C:\ti\tirtos_tivac_2_00_01_23\products\bios_6_40_01_15\packages\ti\catalog\arm\cortexm4\tiva\ce\lib\Boot.aem4f"
 -l"C:\ti\tirtos_tivac_2_00_01_23\products\uia_2_00_00_28\packages\ti\uia\services\lib\release\ti.uia.services.aem4f"
@@ -95,9 +97,9 @@
 
 /* Content from ti.catalog.arm.peripherals.timers (null): */
 
-/* Content from ti.catalog.arm.cortexm4 (null): */
-
 /* Content from ti.catalog (null): */
+
+/* Content from ti.catalog.arm.cortexm4 (null): */
 
 /* Content from ti.catalog.peripherals.hdvicp2 (null): */
 
@@ -111,9 +113,18 @@
 
 /* Content from ti.platforms.tiva (null): */
 
-/* Content from ti.sysbios (null): */
+/* Content from ti.sysbios.family.arm.lm4 (null): */
+
+/* Content from ti.sysbios.family.arm.m3 (ti/sysbios/family/arm/m3/linkcmd.xdt): */
+-u _c_int00
+--retain "*(.resetVecs)"
+ti_sysbios_family_arm_m3_Hwi_nvic = 0xe000e000;
 
 /* Content from ti.sysbios.knl (null): */
+
+/* Content from ti.sysbios (null): */
+
+/* Content from ti.sysbios.fatfs (null): */
 
 /* Content from ti.sysbios.syncs (null): */
 
@@ -126,13 +137,6 @@
 /* Content from ti.sysbios.heaps (null): */
 
 /* Content from ti.sysbios.xdcruntime (null): */
-
-/* Content from ti.sysbios.family.arm.m3 (ti/sysbios/family/arm/m3/linkcmd.xdt): */
--u _c_int00
---retain "*(.resetVecs)"
-ti_sysbios_family_arm_m3_Hwi_nvic = 0xe000e000;
-
-/* Content from ti.sysbios.family.arm.lm4 (null): */
 
 /* Content from ti.sysbios.utils (null): */
 

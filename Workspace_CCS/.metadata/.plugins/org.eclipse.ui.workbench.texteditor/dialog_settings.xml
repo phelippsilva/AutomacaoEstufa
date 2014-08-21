@@ -13,8 +13,9 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="" key="selection"/>
+		<item value="EK_TM4C1294XL_initSDSPI" key="selection"/>
 		<list key="findhistory">
+			<item value="EK_TM4C1294XL_initSDSPI"/>
 			<item value="return;  I2C_close(i2c);"/>
 			<item value="return; I2C_close(i2c);"/>
 			<item value="return;"/>
@@ -22,7 +23,6 @@
 			<item value="I2C_Params_init"/>
 			<item value="I2C_transfer"/>
 			<item value="GPIO_write(Board_LED2, Board_LED_ON);"/>
-			<item value="i2cParams"/>
 		</list>
 		<list key="replacehistory">
 			<item value="return; I2C_close(i2c);"/>

@@ -1,4 +1,4 @@
-//
+﻿//
 // DHT22_430.cpp 
 // Library C++ code
 // ----------------------------------
@@ -118,6 +118,7 @@ boolean DHT22::get() {
   interrupts();
   
 #if defined(DEBUG)
+  /*
   Serial.println();
   
   Serial.print("debug \t");
@@ -148,6 +149,7 @@ boolean DHT22::get() {
   Serial.print("debug \t");
   Serial.print("oC \t");
   Serial.println(data[2]*256 + data[3], DEC);
+*/
 #endif
   
   // check we read 40 bits and that the checksum matches
@@ -167,7 +169,3 @@ boolean DHT22::get() {
   
   return _lastResult;
 }
-
-
-
-
