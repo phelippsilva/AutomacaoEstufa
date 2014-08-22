@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;central_Estufa/rtc&apos; to &apos;rtc.c&apos;" description="Rename resource &apos;rtc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="rtc" name="rtc.c" stamp="1408378217669" updateReferences="true"/>
-</session>
