@@ -36,7 +36,7 @@ unsigned char bcd2dec(unsigned char val) {
 /**
  * Lê os valores do RTC e escreve na memória apontada por *read
  */
-Void lerRTC(UChar *read) {
+Void lerRTC(char *read) {
 
 #define READ_COUNT 7
 	I2C_Handle i2c;

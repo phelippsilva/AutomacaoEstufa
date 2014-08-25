@@ -1,4 +1,4 @@
-# Writing all output to: C:\Users\Tiago\Documents\GitHub\AutomacaoEstufa\Workspace_CCS\central_Estufa\PlacaMae\PlacaMae.log
+# Writing all output to: C:\Users\Tiago\Documents\GitHub\AutomacaoEstufa\PlacaMae\PlacaMae.log
 set pad_wire_necking on
 bus diagonal
 fanout 5

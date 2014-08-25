@@ -77,10 +77,9 @@ Void heartBeatFxn(UArg arg0, UArg arg1) {
 		GPIO_toggle(Board_LED0);
 	}
 }
-
 Void consoleFxn(UArg arg0, UArg arg1) {
 	char input[128];
-	UChar data[7];
+	char data[7];
 	char conteudo[50];
 
 	printf("======== Bem vindo ao sistema da estufa ========\n");
@@ -151,13 +150,12 @@ Void consoleFxn(UArg arg0, UArg arg1) {
 					} else {
 						if (!strcmp(input, "escreve")) {
 							printf("Digite uma linha de conteudo: ");
-							fgets(conteudo, sizeof(conteudo),stdin);
+							fgets(conteudo, sizeof(conteudo), stdin);
 							sdEscreve(conteudo, sizeof(conteudo));
 						} else {
 							if (!strcmp(input, "moo")) {
 								printf("Ainda não tenho easter eggs!\n");
 							} else {
-
 								if (!strcmp(input, "sair")) {
 									/* Exit the console task */
 									printf("Deseja sair do console: S/N? ");

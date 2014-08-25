@@ -24,7 +24,7 @@ extern unsigned char dec2bcd(unsigned char val);
 extern unsigned char bin2bcd(unsigned char val);
 extern unsigned char bcd2bin(unsigned char val);
 extern unsigned char bcd2dec(unsigned char val);
-extern Void lerRTC(UChar *read);
+extern Void lerRTC(char *read);
 extern Void ajustarRTC();
 
 #endif /* RTC_H_ */
