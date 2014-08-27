@@ -27,4 +27,8 @@ extern unsigned char bcd2dec(unsigned char val);
 extern Void lerRTC(char *read);
 extern Void ajustarRTC();
 
+/*!
+ * Função que retorna
+ */
+extern bool minutoRTC(char *read);
 #endif /* RTC_H_ */

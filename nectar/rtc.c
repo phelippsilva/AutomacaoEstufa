@@ -62,11 +62,11 @@ Void lerRTC(char *read) {
 	i2cTransaction.readBuf = readBuffer; /* Buffer to be read */
 	i2cTransaction.readCount = READ_COUNT; /* Number of bytes to be read */
 
-	Task_sleep(100);
+	Task_sleep(5);
 	//Comunica com o dispositivo
 	transferOK = I2C_transfer(i2c, &i2cTransaction);
 	if (!transferOK) {
-		printf("Falha na comunicação\n\tDispositivo externo não encontrado!");
+		printf("Falha na comunicação\n\tDispositivo externo não encontrado!\n");
 		fflush(stdout);
 		I2C_close(i2c);
 		return;
@@ -122,11 +122,11 @@ Void ajustarRTC() {
 	i2cTransaction.readCount = 0; /* Number of bytes to be read */
 	writeBuffer[0] = 0;
 
-	Task_sleep(10);
+	Task_sleep(5);
 	//Comunica com o dispositivo
 	transferOK = I2C_transfer(i2c, &i2cTransaction);
 	if (!transferOK) {
-		printf("Falha na comunicação\n\tDispositivo externo não encontrado!");
+		printf("Falha na comunicação\n\tDispositivo externo não encontrado!\n");
 		fflush(stdout);
 		I2C_close(i2c);
 		return;
@@ -161,7 +161,7 @@ Void ajustarRTC() {
 				I2C_close(i2c);
 				return;
 			}
-			printf("Somente numeros positivos entre 1 e 7!");
+			printf("Somente numeros positivos entre 1 e 7!\n");
 		}
 	} while ((tmp <= 0) || (tmp > 7));
 	fflush(stdin);
@@ -181,7 +181,7 @@ Void ajustarRTC() {
 				I2C_close(i2c);
 				return;
 			}
-			printf("Somente numeros positivos entre 1 e 31!");
+			printf("Somente numeros positivos entre 1 e 31!\n");
 		}
 	} while ((tmp <= 0) || (tmp > 31));
 	fflush(stdin);
@@ -201,7 +201,7 @@ Void ajustarRTC() {
 				I2C_close(i2c);
 				return;
 			}
-			printf("Somente numeros positivos entre 1 e 12!");
+			printf("Somente numeros positivos entre 1 e 12!\n");
 		}
 	} while ((tmp <= 0) || (tmp > 12));
 	fflush(stdin);
@@ -221,7 +221,7 @@ Void ajustarRTC() {
 				I2C_close(i2c);
 				return;
 			}
-			printf("Somente numeros positivos entre 00 e 99!");
+			printf("Somente numeros positivos entre 00 e 99!\n");
 		}
 	} while ((tmp < 0) || (tmp > 99));
 	fflush(stdin);
@@ -242,7 +242,7 @@ Void ajustarRTC() {
 				I2C_close(i2c);
 				return;
 			}
-			printf("Somente numeros positivos entre 00 e 23!");
+			printf("Somente numeros positivos entre 00 e 23!\n");
 		}
 	} while ((tmp < 0) || (tmp > 23));
 	fflush(stdin);
@@ -262,7 +262,7 @@ Void ajustarRTC() {
 				I2C_close(i2c);
 				return;
 			}
-			printf("Somente numeros positivos entre 00 e 59!");
+			printf("Somente numeros positivos entre 00 e 59!\n");
 		}
 	} while ((tmp < 0) || (tmp > 59));
 	fflush(stdin);
@@ -282,7 +282,7 @@ Void ajustarRTC() {
 				I2C_close(i2c);
 				return;
 			}
-			printf("Somente numeros positivos entre 00 e 59!");
+			printf("Somente numeros positivos entre 00 e 59!\n");
 		}
 	} while ((tmp < 0) || (tmp > 59));
 	fflush(stdin);
@@ -299,15 +299,58 @@ Void ajustarRTC() {
 	i2cTransaction.readBuf = NULL; /* Buffer para leitura */
 	i2cTransaction.readCount = 0; /* Numero de bytes para leitura ( */
 
-	Task_sleep(100);
+	Task_sleep(5);
 	//Comunica com o dispositivo
 	transferOK = I2C_transfer(i2c, &i2cTransaction);
 	if (!transferOK) {
-		printf("Falha na comunicação\n\tDispositivo externo não encontrado!");
+		printf("Falha na comunicação\n\tDispositivo externo não encontrado!\n");
 		fflush(stdout);
 		I2C_close(i2c);
 		return;
 	}
 	I2C_close(i2c);
 	printf("Relógio ajustado!");
+}
+
+
+bool minutoRTC(char *read) {
+
+#define READ_COUNT 7
+	I2C_Handle i2c;
+	UInt peripheralNum = 0; /* Interface I2C0 */
+	I2C_Params i2cParams;
+	I2C_Transaction i2cTransaction;
+	UChar writeBuffer[9];
+	writeBuffer[0] = 0;
+	UChar readBuffer[READ_COUNT];
+	Bool transferOK;
+	I2C_Params_init(&i2cParams);
+	i2c = I2C_open(peripheralNum, &i2cParams);
+	if (i2c == NULL) {
+		printf("Não foi possível abrir a interface I2C0!\n");
+		fflush(stdout);
+		return false;
+	}
+
+	//Seta os parâmetros para a comunicação
+	i2cTransaction.slaveAddress = 0x68; /* 7-bit peripheral slave address */
+	i2cTransaction.writeBuf = writeBuffer; /* Buffer to be written */
+	i2cTransaction.writeCount = 1; /* Number of bytes to be written */
+	i2cTransaction.readBuf = readBuffer; /* Buffer to be read */
+	i2cTransaction.readCount = READ_COUNT; /* Number of bytes to be read */
+
+	Task_sleep(5);
+	//Comunica com o dispositivo
+	transferOK = I2C_transfer(i2c, &i2cTransaction);
+	if (!transferOK) {
+		printf("Falha na comunicação\n\tDispositivo externo não encontrado!\n");
+		fflush(stdout);
+		I2C_close(i2c);
+		return false;
+	}
+
+	//converte os valores lidos e escreve na memória
+	*read = bcd2dec(readBuffer[1]); //minuto
+	I2C_close(i2c);// fecha comunicação I2C
+	return true;
 }

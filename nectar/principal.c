@@ -66,21 +66,40 @@
 #include "rtc.h"
 #include "sd.h"
 
+int controle = 0;
+int *p_controle = &controle;
+
 /*
  *  ======== heartBeatFxn ========
  *  Toggle the Board_LED0. The Task_sleep is determined by arg0 which
  *  is configured for the heartBeat Task instance.
  */
+
+Void lerRTCFxn() {
+
+}
+
 Void heartBeatFxn(UArg arg0, UArg arg1) {
+	char data[7];
+
 	while (1) {
-		Task_sleep((UInt) arg0);
-		GPIO_toggle(Board_LED0);
+//		Task_sleep((UInt) arg0);
+		Task_sleep(10);
+		if (*p_controle == 1) {
+			GPIO_toggle(Board_LED0);
+			lerRTC(data);
+			//printf("%d\n", data[6]);
+		} else {
+			GPIO_write(Board_LED0, Board_LED_OFF);
+		}
 	}
 }
+
 Void consoleFxn(UArg arg0, UArg arg1) {
 	char input[128];
 	char data[7];
 	char conteudo[50];
+	char minuto[1];
 
 	printf("======== Bem vindo ao sistema da estufa ========\n");
 	fflush(stdout);
@@ -155,26 +174,35 @@ Void consoleFxn(UArg arg0, UArg arg1) {
 						} else {
 							if (!strcmp(input, "moo")) {
 								printf("Ainda nÃ£o tenho easter eggs!\n");
-							} else {
-								if (!strcmp(input, "sair")) {
-									/* Exit the console task */
-									printf("Deseja sair do console: S/N? ");
-									fflush(stdout);
-									scanf("%s", input);
-									fflush(stdin);
-									if ((input[0] == 's' || input[0] == 'S')
-											&& input[1] == 0x00) {
-										break;
-									}
+							} else if (!strcmp(input, "i2c")) {
+								controle = 1;
+							} else if (!strcmp(input, "para")) {
+								controle = 0;
+							} else if (!strcmp(input, "minuto")) {
+								if (minutoRTC(minuto)) {
+									printf("Minuto atual: %d\n", minuto[0]);
 								} else {
-									printf("Comando nao encontrado!\n");
+									printf("Não foi possível ler o minuto.\n");
 								}
+							} else if (!strcmp(input, "sair")) {
+								/* Exit the console task */
+								printf("Deseja sair do console: S/N? ");
+								fflush(stdout);
+								scanf("%s", input);
+								fflush(stdin);
+								if ((input[0] == 's' || input[0] == 'S')
+										&& input[1] == 0x00) {
+									break;
+								}
+							} else {
+								printf("Comando nao encontrado!\n");
 							}
 						}
 					}
 				}
 			}
 		}
+
 	}
 	printf("Saindo do console, ate mais :)\n");
 	Task_exit();
