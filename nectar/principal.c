@@ -74,21 +74,15 @@ int *p_controle = &controle;
  *  Toggle the Board_LED0. The Task_sleep is determined by arg0 which
  *  is configured for the heartBeat Task instance.
  */
-
-Void lerRTCFxn() {
-
-}
-
 Void heartBeatFxn(UArg arg0, UArg arg1) {
-	char data[7];
+	//char data[7];
 
 	while (1) {
-//		Task_sleep((UInt) arg0);
-		Task_sleep(10);
+		Task_sleep((UInt) arg0);
+		//Task_sleep(10);
 		if (*p_controle == 1) {
 			GPIO_toggle(Board_LED0);
-			lerRTC(data);
-			//printf("%d\n", data[6]);
+			//lerRTC(data);
 		} else {
 			GPIO_write(Board_LED0, Board_LED_OFF);
 		}
