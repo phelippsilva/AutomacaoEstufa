@@ -20,6 +20,7 @@
 #ifndef RTC_H_
 #define RTC_H_
 
+
 extern unsigned char dec2bcd(unsigned char val);
 extern unsigned char bin2bcd(unsigned char val);
 extern unsigned char bcd2bin(unsigned char val);
@@ -28,7 +29,7 @@ extern Void lerRTC(char *read);
 extern Void ajustarRTC();
 
 /*!
- * Função que retorna
+ * Funcao que retorna o minuto atual
  */
 extern bool minutoRTC(char *read);
 #endif /* RTC_H_ */

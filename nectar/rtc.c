@@ -1,6 +1,6 @@
 /*
  * rtc.c
- * Primeira versão da biblioteca para acessar o módulo de tempo real DS1307
+ * Primeira versao da biblioteca para acessar o modulo de tempo real DS1307
  *
  *  Created on: 18/08/2014
  *      Author: Tiago
@@ -15,14 +15,14 @@ unsigned char dec2bcd(unsigned char val) {
 }
 
 /**
- * Converte binário para bcd
+ * Converte binario para bcd
  */
 unsigned char bin2bcd(unsigned char val) {
 	return (val + 6 * (val / 10));
 }
 
 /**
- * Converte bcd para binário
+ * Converte bcd para binario
  */
 unsigned char bcd2bin(unsigned char val) {
 	return (val - 6 * (val >> 4));
@@ -34,13 +34,13 @@ unsigned char bcd2dec(unsigned char val) {
 }
 
 /**
- * Lê os valores do RTC e escreve na memória apontada por *read
+ * Le os valores do RTC e escreve na memoria apontada por *read
  */
 Void lerRTC(char *read) {
 
 #define READ_COUNT 7
-	I2C_Handle i2c;
 	UInt peripheralNum = 0; /* Interface I2C0 */
+	I2C_Handle i2c;
 	I2C_Params i2cParams;
 	I2C_Transaction i2cTransaction;
 	UChar writeBuffer[9];
@@ -50,29 +50,28 @@ Void lerRTC(char *read) {
 	I2C_Params_init(&i2cParams);
 	i2c = I2C_open(peripheralNum, &i2cParams);
 	if (i2c == NULL) {
-		printf("Não foi possível abrir a interface I2C0!\n");
+		printf("Nao foi possivel abrir a interface I2C0!\n");
 		fflush(stdout);
 		return;
 	}
 
-	//Seta os parâmetros para a comunicação
+	//Seta os parametros para a comunicacao
 	i2cTransaction.slaveAddress = 0x68; /* 7-bit peripheral slave address */
 	i2cTransaction.writeBuf = writeBuffer; /* Buffer to be written */
 	i2cTransaction.writeCount = 1; /* Number of bytes to be written */
 	i2cTransaction.readBuf = readBuffer; /* Buffer to be read */
 	i2cTransaction.readCount = READ_COUNT; /* Number of bytes to be read */
 
-	Task_sleep(5);
 	//Comunica com o dispositivo
 	transferOK = I2C_transfer(i2c, &i2cTransaction);
 	if (!transferOK) {
-		printf("Falha na comunicação\n\tDispositivo externo não encontrado!\n");
+		printf("Falha na comunicacao\n\tDispositivo externo nao encontrado!\n");
 		fflush(stdout);
 		I2C_close(i2c);
 		return;
 	}
 
-	//converte os valores lidos e escreve na memória do microcontrolador
+	//converte os valores lidos e escreve na memoria do microcontrolador
 	*(read) = bcd2dec(readBuffer[3]); //dia da semana
 	*(read + 1) = bcd2dec(readBuffer[4]); //dia
 	*(read + 2) = bcd2dec(readBuffer[5]); //mes
@@ -80,15 +79,6 @@ Void lerRTC(char *read) {
 	*(read + 4) = bcd2dec(readBuffer[2]) & 0x3f; //hora
 	*(read + 5) = bcd2dec(readBuffer[1]); //minuto
 	*(read + 6) = bcd2dec(readBuffer[0]) & 0x7f; //segundo
-
-//Mostra na tela os valores lidos
-//	printf("%d h:%d m:%d s", *(read + 4), *(read + 5), *(read+ 6));
-//	fflush(stdout);
-//	printf(" - %d - ", *(read));
-//	fflush(stdout);
-//	printf("%d/%d/%d ", *(read + 1), *(read + 2), *(read + 3));
-//	printf("\n");
-//	fflush(stdout);
 
 	I2C_close(i2c);
 }
@@ -107,13 +97,13 @@ Void ajustarRTC() {
 	//Abre a interface I2C
 	i2c = I2C_open(peripheralNum, &i2cParams);
 	if (i2c == NULL) {
-		printf("Não foi possível abrir a interface I2C0!\n");
+		printf("Nao foi possivel abrir a interface I2C0!\n");
 		fflush(stdout);
 		return;
 	}
 
-	/**Seta os parâmetros para a comunicação
-	 * para confirmar se o dispositivo está conectado.
+	/**Seta os parametros para a comunicacao
+	 * para confirmar se o dispositivo esta conectado.
 	 */
 	i2cTransaction.slaveAddress = 0x68; /* 7-bit peripheral slave address */
 	i2cTransaction.writeBuf = writeBuffer; /* Buffer to be written */
@@ -126,7 +116,7 @@ Void ajustarRTC() {
 	//Comunica com o dispositivo
 	transferOK = I2C_transfer(i2c, &i2cTransaction);
 	if (!transferOK) {
-		printf("Falha na comunicação\n\tDispositivo externo não encontrado!\n");
+		printf("Falha na comunicacao\n\tDispositivo externo nao encontrado!\n");
 		fflush(stdout);
 		I2C_close(i2c);
 		return;
@@ -146,13 +136,13 @@ Void ajustarRTC() {
 	//	writeBuffer[8] sempre em 0
 	writeBuffer[0] = 0;	//inicio
 
-	printf("Calendário");
+	printf("Calendario");
 	do {
 		printf("\n\tDia da semana (Domingo=1)[-1 cancela]: ");
 		fflush(stdout);
 		if (scanf("%d", &tmp) != 1) {
 			fflush(stdin);
-			printf("Aceita somente números inteiros!\n");
+			printf("Aceita somente numeros inteiros!\n");
 			fflush(stdout);
 		}
 		if ((tmp <= 0) || (tmp > 7)) {
@@ -172,7 +162,7 @@ Void ajustarRTC() {
 		fflush(stdout);
 		if (scanf("%d", &tmp) != 1) {
 			fflush(stdin);
-			printf("Aceita somente números inteiros!\n");
+			printf("Aceita somente numeros inteiros!\n");
 			fflush(stdout);
 		}
 		if ((tmp <= 0) || (tmp > 31)) {
@@ -188,11 +178,11 @@ Void ajustarRTC() {
 	writeBuffer[5] = bin2bcd(tmp);
 
 	do {
-		printf("\n\tMês (1-12)[-1 cancela]: ");
+		printf("\n\tMes (1-12)[-1 cancela]: ");
 		fflush(stdout);
 		if (scanf("%d", &tmp) != 1) {
 			fflush(stdin);
-			printf("Aceita somente números inteiros!\n");
+			printf("Aceita somente numeros inteiros!\n");
 			fflush(stdout);
 		}
 		if ((tmp <= 0) || (tmp > 12)) {
@@ -212,7 +202,7 @@ Void ajustarRTC() {
 		fflush(stdout);
 		if (scanf("%d", &tmp) != 1) {
 			fflush(stdin);
-			printf("Aceita somente números inteiros!\n");
+			printf("Aceita somente numeros inteiros!\n");
 			fflush(stdout);
 		}
 		if ((tmp < 0) || (tmp > 99)) {
@@ -227,13 +217,13 @@ Void ajustarRTC() {
 	fflush(stdin);
 	writeBuffer[7] = bin2bcd(tmp);
 
-	printf("Relógio\n");
+	printf("Relogio\n");
 	do {
 		printf("\n\tHora [-1 cancela]: ");
 		fflush(stdout);
 		if (scanf("%d", &tmp) != 1) {
 			fflush(stdin);
-			printf("Aceita somente números inteiros!\n");
+			printf("Aceita somente numeros inteiros!\n");
 			fflush(stdout);
 		}
 		if ((tmp < 0) || (tmp > 23)) {
@@ -253,7 +243,7 @@ Void ajustarRTC() {
 		fflush(stdout);
 		if (scanf("%d", &tmp) != 1) {
 			fflush(stdin);
-			printf("Aceita somente números inteiros!\n");
+			printf("Aceita somente numeros inteiros!\n");
 			fflush(stdout);
 		}
 		if ((tmp < 0) || (tmp > 59)) {
@@ -273,7 +263,7 @@ Void ajustarRTC() {
 		fflush(stdout);
 		if (scanf("%d", &tmp) != 1) {
 			fflush(stdin);
-			printf("Aceita somente números inteiros!\n");
+			printf("Aceita somente numeros inteiros!\n");
 			fflush(stdout);
 		}
 		if ((tmp < 0) || (tmp > 59)) {
@@ -293,7 +283,7 @@ Void ajustarRTC() {
 	/**
 	 * Executa o ajuste
 	 */
-	i2cTransaction.slaveAddress = 0x68; /* endereço do dispositivo na rede */
+	i2cTransaction.slaveAddress = 0x68; /* endereï¿½o do dispositivo na rede */
 	i2cTransaction.writeBuf = writeBuffer; /* Buffer de escrita */
 	i2cTransaction.writeCount = 9; /* Numeros de bytes do buffer */
 	i2cTransaction.readBuf = NULL; /* Buffer para leitura */
@@ -303,13 +293,13 @@ Void ajustarRTC() {
 	//Comunica com o dispositivo
 	transferOK = I2C_transfer(i2c, &i2cTransaction);
 	if (!transferOK) {
-		printf("Falha na comunicação\n\tDispositivo externo não encontrado!\n");
+		printf("Falha na comunicacao\n\tDispositivo externo nao encontrado!\n");
 		fflush(stdout);
 		I2C_close(i2c);
 		return;
 	}
 	I2C_close(i2c);
-	printf("Relógio ajustado!");
+	printf("Relogio ajustado!");
 }
 
 
@@ -327,12 +317,12 @@ bool minutoRTC(char *read) {
 	I2C_Params_init(&i2cParams);
 	i2c = I2C_open(peripheralNum, &i2cParams);
 	if (i2c == NULL) {
-		printf("Não foi possível abrir a interface I2C0!\n");
+		printf("Nao foi possivel abrir a interface I2C0!\n");
 		fflush(stdout);
 		return false;
 	}
 
-	//Seta os parâmetros para a comunicação
+	//Seta os parametros para a comunicacao
 	i2cTransaction.slaveAddress = 0x68; /* 7-bit peripheral slave address */
 	i2cTransaction.writeBuf = writeBuffer; /* Buffer to be written */
 	i2cTransaction.writeCount = 1; /* Number of bytes to be written */
@@ -343,14 +333,14 @@ bool minutoRTC(char *read) {
 	//Comunica com o dispositivo
 	transferOK = I2C_transfer(i2c, &i2cTransaction);
 	if (!transferOK) {
-		printf("Falha na comunicação\n\tDispositivo externo não encontrado!\n");
+		printf("Falha na comunicacao\n\tDispositivo externo nao encontrado!\n");
 		fflush(stdout);
 		I2C_close(i2c);
 		return false;
 	}
 
-	//converte os valores lidos e escreve na memória
+	//converte os valores lidos e escreve na memï¿½ria
 	*read = bcd2dec(readBuffer[1]); //minuto
-	I2C_close(i2c);// fecha comunicação I2C
+	I2C_close(i2c);// fecha comunicacao I2C
 	return true;
 }

@@ -65,6 +65,7 @@
 
 #include "rtc.h"
 #include "sd.h"
+#include "sensores.h"
 
 int controle = 0;
 int *p_controle = &controle;
@@ -75,14 +76,14 @@ int *p_controle = &controle;
  *  is configured for the heartBeat Task instance.
  */
 Void heartBeatFxn(UArg arg0, UArg arg1) {
-	//char data[7];
+	char data[7];
 
 	while (1) {
-		Task_sleep((UInt) arg0);
-		//Task_sleep(10);
+		//Task_sleep((UInt) arg0);
+		Task_sleep(10);
 		if (*p_controle == 1) {
 			GPIO_toggle(Board_LED0);
-			//lerRTC(data);
+			lerRTC(data);
 		} else {
 			GPIO_write(Board_LED0, Board_LED_OFF);
 		}
@@ -94,6 +95,8 @@ Void consoleFxn(UArg arg0, UArg arg1) {
 	char data[7];
 	char conteudo[50];
 	char minuto[1];
+	UChar sensor[6];
+	int qtd=0;
 
 	printf("======== Bem vindo ao sistema da estufa ========\n");
 	fflush(stdout);
@@ -106,6 +109,7 @@ Void consoleFxn(UArg arg0, UArg arg1) {
 		fflush(stdout);
 		fflush(stdin);
 
+		//cuidado com a quantidade de caracteres!
 		if (!strcmp(input, "oi")) {
 			printf("Oi, como vai voce?\n"
 					"Os comandos disponiveis sao os seguintes:\n\t"
@@ -114,92 +118,98 @@ Void consoleFxn(UArg arg0, UArg arg1) {
 
 			printf("\"ler\", para ler o conteudo do arquivo \"input.txt\","
 					" que esta no cartao de memoria\n\t"
-					"\"escreve\", escreve uma linha no arquivo\n\t"
-					"\"sair\", para sair do terminal.\n");
-		} else {
-			if (!strcmp(input, "agora")) {
-				lerRTC(data);
-				switch (data[0]) {
-				case 1:
-					printf("Domingo");
-					fflush(stdout);
-					break;
-				case 2:
-					printf("Segunda-feira");
-					fflush(stdout);
-					break;
-				case 3:
-					printf("Ter√ßa-feira");
-					fflush(stdout);
-					break;
-				case 4:
-					printf("Quarta-feira");
-					fflush(stdout);
-					break;
-				case 5:
-					printf("Quinta-feira");
-					fflush(stdout);
-					break;
-				case 6:
-					printf("Sexta-feira");
-					fflush(stdout);
-					break;
-				case 7:
-					printf("S√°bado");
-					fflush(stdout);
-					break;
-				}
-				printf(", %d do %d de %d", data[1], data[2], 2000 + data[3]);
+					"\"escreve\", escreve uma linha no arquivo\n");
+		} else if (!strcmp(input, "agora")) {
+			lerRTC(data);
+			switch (data[0]) {
+			case 1:
+				printf("Domingo");
 				fflush(stdout);
-				printf(". %d:%d:%d\n", data[4], data[5], data[6]);
+				break;
+			case 2:
+				printf("Segunda-feira");
+				fflush(stdout);
+				break;
+			case 3:
+				printf("Terca-feira");
+				fflush(stdout);
+				break;
+			case 4:
+				printf("Quarta-feira");
+				fflush(stdout);
+				break;
+			case 5:
+				printf("Quinta-feira");
+				fflush(stdout);
+				break;
+			case 6:
+				printf("Sexta-feira");
+				fflush(stdout);
+				break;
+			case 7:
+				printf("Sabado");
+				fflush(stdout);
+				break;
+			}
+			printf(", %d do %d de %d", data[1], data[2], 2000 + data[3]);
+			fflush(stdout);
+			printf(". %d:%d:%d\n", data[4], data[5], data[6]);
+			fflush(stdout);
+		} else if (!strcmp(input, "ajustar")) {
+			ajustarRTC();
+		} else if (!strcmp(input, "ler")) {
+			sdLe();
+		} else if (!strcmp(input, "escreve")) {
+			printf("Digite uma linha de conteudo: ");
+			fgets(conteudo, sizeof(conteudo), stdin);
+			sdEscreve(conteudo, sizeof(conteudo));
+		} else if (!strcmp(input, "moo")) {
+			printf("Ainda naoo tenho easter eggs!\n");
+			fflush(stdout);
+		} else if (!strcmp(input, "i2c")) {
+			controle = 1;
+		} else if (!strcmp(input, "para")) {
+			controle = 0;
+		} else if (!strcmp(input, "minuto")) {
+			if (minutoRTC(minuto)) {
+				printf("Minuto atual: %d\n", minuto[0]);
 				fflush(stdout);
 			} else {
-
-				if (!strcmp(input, "ajustar")) {
-					ajustarRTC();
-				} else {
-					if (!strcmp(input, "ler")) {
-						sdLe();
-					} else {
-						if (!strcmp(input, "escreve")) {
-							printf("Digite uma linha de conteudo: ");
-							fgets(conteudo, sizeof(conteudo), stdin);
-							sdEscreve(conteudo, sizeof(conteudo));
-						} else {
-							if (!strcmp(input, "moo")) {
-								printf("Ainda n√£o tenho easter eggs!\n");
-							} else if (!strcmp(input, "i2c")) {
-								controle = 1;
-							} else if (!strcmp(input, "para")) {
-								controle = 0;
-							} else if (!strcmp(input, "minuto")) {
-								if (minutoRTC(minuto)) {
-									printf("Minuto atual: %d\n", minuto[0]);
-								} else {
-									printf("N„o foi possÌvel ler o minuto.\n");
-								}
-							} else if (!strcmp(input, "sair")) {
-								/* Exit the console task */
-								printf("Deseja sair do console: S/N? ");
-								fflush(stdout);
-								scanf("%s", input);
-								fflush(stdin);
-								if ((input[0] == 's' || input[0] == 'S')
-										&& input[1] == 0x00) {
-									break;
-								}
-							} else {
-								printf("Comando nao encontrado!\n");
-							}
-						}
-					}
-				}
+				printf("Nao foi possivel ler o minuto.\n");
+				fflush(stdout);
 			}
+		} else if (!strcmp(input, "sensor")) {
+			printf("Quantos bytes? ");
+			fflush(stdout);
+			scanf("%d",&qtd);
+			fflush(stdin);
+			if (lerSensor(sensor, qtd)) {
+				printf("Sensor disse: %d\n", sensor[0]);
+				fflush(stdout);
+				fflush(stdin);
+			} else {
+				printf("Nao foi possivel ler o sensor.\n");
+				fflush(stdout);
+			}
+		} else if (!strcmp(input, "apaga")) {
+			sdApaga("input");
 		}
-
+//								else if (!strcmp(input, "sair")) {
+//								/* Exit the console task */
+//								printf("Deseja sair do console: S/N? ");
+//								fflush(stdout);
+//								scanf("%s", input);
+//								fflush(stdin);
+//								if ((input[0] == 's' || input[0] == 'S')
+//										&& input[1] == 0x00) {
+//									break;
+//								}
+//							}
+		else {
+			printf("Comando nao encontrado!\n");
+		}
 	}
-	printf("Saindo do console, ate mais :)\n");
-	Task_exit();
+	//Task_exit();
 }
 /*
  *  ======== main ========

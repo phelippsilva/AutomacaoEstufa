@@ -13,6 +13,7 @@
 
 /* XDCtools Header files */
 #include <xdc/cfg/global.h>
+#include <xdc/runtime/System.h>
 
 #include <ti/drivers/SDSPI.h>
 #include "../Board.h"
@@ -24,8 +25,8 @@
 #define SD_H_
 
 /* Buffer size used for the file copy process */
-#ifndef CPY_BUFF_SIZE
-#define CPY_BUFF_SIZE       1
+#ifndef BUFF_SIZE
+#define BUFF_SIZE       1
 #endif
 
 /* String conversion macro */
@@ -37,5 +38,6 @@
 
 extern void sdLe();
 extern void sdEscreve(char *conteudo, int tamanho);
+extern bool sdApaga(char *nome);
 
 #endif /* SD_H_ */
