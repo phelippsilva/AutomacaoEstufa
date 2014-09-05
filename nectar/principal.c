@@ -96,7 +96,7 @@ Void consoleFxn(UArg arg0, UArg arg1) {
 	char conteudo[50];
 	char minuto[1];
 	UChar sensor[6];
-	int qtd=0;
+	//int qtd = 0;
 
 	printf("======== Bem vindo ao sistema da estufa ========\n");
 	fflush(stdout);
@@ -115,10 +115,15 @@ Void consoleFxn(UArg arg0, UArg arg1) {
 					"Os comandos disponiveis sao os seguintes:\n\t"
 					"\"agora\", para saber a data e hora\n\t"
 					"\"ajustar\", para ajsutar o RTC\n\t");
-
 			printf("\"ler\", para ler o conteudo do arquivo \"input.txt\","
 					" que esta no cartao de memoria\n\t"
-					"\"escreve\", escreve uma linha no arquivo\n");
+					"\"escreve\", escreve uma linha no arquivo\n\t");
+			printf("\"apaga\", para apagar o arquivo \"input.txt\","
+					" que esta no cartao de memoria\n\t"
+					"\"i2c\", le da porta i2c a cada 10 ms\n\t");
+			printf("\"para\", para de ler da porta i2c,\n\t"
+					"\"sensor\", le dados do sensor atraves do i2c\n\t");
+			printf("\"minuto\", ler minuto atual do RTC.\n");
 		} else if (!strcmp(input, "agora")) {
 			lerRTC(data);
 			switch (data[0]) {
@@ -179,11 +184,11 @@ Void consoleFxn(UArg arg0, UArg arg1) {
 				fflush(stdout);
 			}
 		} else if (!strcmp(input, "sensor")) {
-			printf("Quantos bytes? ");
-			fflush(stdout);
-			scanf("%d",&qtd);
-			fflush(stdin);
-			if (lerSensor(sensor, qtd)) {
+			//printf("Quantos bytes? ");
+			//fflush(stdout);
+			//scanf("%d", &qtd);
+			//fflush(stdin);
+			if (lerSensor(sensor, 1)) {
 				printf("Sensor disse: %d\n", sensor[0]);
 				fflush(stdout);
 				fflush(stdin);

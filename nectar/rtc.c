@@ -299,7 +299,7 @@ Void ajustarRTC() {
 		return;
 	}
 	I2C_close(i2c);
-	printf("Relogio ajustado!");
+	printf("Relogio ajustado!\n");
 }
 
 
