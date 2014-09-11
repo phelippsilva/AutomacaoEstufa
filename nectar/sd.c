@@ -11,7 +11,7 @@ void sdLe() {
 	SDSPI_Handle sdspiHandle;
 	SDSPI_Params sdspiParams;
 	FILE *src;
-	unsigned int bytesRead = 0;
+//	unsigned int bytesRead = 0;
 
 	const char inputfile[] = "fat:"STR(SD_DRIVE_NUM)":input.txt";
 
@@ -28,30 +28,32 @@ void sdLe() {
 //		printf("Drive %u montado!\n", SD_DRIVE_NUM);
 //	}
 	/* Tenta abrir o arquivo */
-	src = fopen(inputfile, "r");
+	src = fopen(inputfile, "rb");
 	if (!src) {
 		printf("Nao foi possivel abrir o arquivo!\n");
-		Task_sleep(10);
+		Task_sleep(1);
 		SDSPI_close(sdspiHandle);
 		return;
 	} else {
 		printf("\t\tArquivo aberto!\n");
 
 		while (true) {
-			/*  Le do arquivo */
-			bytesRead = fread(read_buff, 1, sizeof(read_buff), src);
-			//fgets(read_buff, sizeof(read_buff), src);
-			printf("%s", read_buff);
-			if (feof(src)) {
+			/*  Le blocos do arquivo arquivo */
+			//bytesRead = fread(read_buff,sizeof(char), sizeof(read_buff), src);
+			//TODO: Está lendo duas vezes a última linha!
+			if (!feof(src)) {
+				fgets(read_buff, sizeof(read_buff), src); //le linhas do arquivo
+				printf("%s", read_buff);
+				fflush(stdout);
+			} else {
 				printf("\t\tFim do arquivo\n");
 				break;
 			}
-			if (bytesRead == 0) {
-				printf("\t\tFim do arquivo\n");
-				break; /* Error or EOF */
-			}
+//			if (bytesRead == 0) {
+//				printf("\t\tFim do arquivo\n");
+//				break; /* Error or EOF */
+//			}
 		}
-		fflush(src);
 		fclose(src);
 	}
 	SDSPI_close(sdspiHandle);
@@ -74,17 +76,17 @@ void sdEscreve(char *conteudo, int tamanho) {
 //		printf("Drive %u montado!\n", SD_DRIVE_NUM);
 //	}
 	/* Tenta abrir o arquivo */
-	src = fopen(outputfile, "a");
+	src = fopen(outputfile, "ab");
 	if (!src) {
 		printf("Nao foi possivel criar o arquivo!\n");
-		Task_sleep(10);
+		Task_sleep(1);
 		SDSPI_close(sdspiHandle);
 		return;
 	} else {
 		printf("Arquivo criado!\n\n");
 		/*  escreve do arquivo */
 		fputs(conteudo, src);
-		fflush(src);
+		//fflush(src);
 		fclose(src);
 	}
 	SDSPI_close(sdspiHandle);

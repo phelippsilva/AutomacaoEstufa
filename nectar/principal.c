@@ -61,7 +61,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include <stdint.h>
+//#include <stdint.h>
 
 #include "rtc.h"
 #include "sd.h"
@@ -97,6 +97,7 @@ Void consoleFxn(UArg arg0, UArg arg1) {
 	char minuto[1];
 	UChar sensor[6];
 	//int qtd = 0;
+
 
 	printf("======== Bem vindo ao sistema da estufa ========\n");
 	fflush(stdout);

@@ -26,7 +26,7 @@
 
 /* Buffer size used for the file copy process */
 #ifndef BUFF_SIZE
-#define BUFF_SIZE       1
+#define BUFF_SIZE       128
 #endif
 
 /* String conversion macro */
